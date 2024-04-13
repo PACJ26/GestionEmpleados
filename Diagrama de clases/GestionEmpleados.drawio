@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-13T16:22:40.505Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0" etag="aV-ZSjO50G1yWXHPbHew" version="24.0.4" type="device">
+<mxfile host="app.diagrams.net" modified="2024-04-13T16:40:23.513Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0" etag="GveBQE3PoImyHNM4E8uo" version="24.0.4" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1073" dy="1786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -31,10 +31,10 @@
         <mxCell id="z12xA1FRbFR3703tulA1-13" value="- Genero: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
           <mxGeometry y="208" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="z12xA1FRbFR3703tulA1-15" value="- fechaNacimiento: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
+        <mxCell id="z12xA1FRbFR3703tulA1-15" value="- fechaNacimiento: Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
           <mxGeometry y="234" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="z12xA1FRbFR3703tulA1-16" value="- fechaContratacion: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
+        <mxCell id="z12xA1FRbFR3703tulA1-16" value="- fechaContratacion: Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
           <mxGeometry y="260" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="z12xA1FRbFR3703tulA1-17" value="- Cargo: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="z12xA1FRbFR3703tulA1-4">
