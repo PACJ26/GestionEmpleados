@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import logica.Empleado;
 import persistencia.Conexion;
 
@@ -18,11 +20,13 @@ public class formAdministrador extends javax.swing.JFrame {
     ArrayList<Empleado> listaEmpleados;
 
     public formAdministrador() {
+        listaEmpleados = new ArrayList();
         conexion = new Conexion();
         initComponents();
         llenarComboDocumento();
         llenarComboGenero();
         llenarComboCargo();
+        ValidarCamposVacios();
     }
 
     @SuppressWarnings("unchecked")
@@ -328,13 +332,18 @@ public class formAdministrador extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
+        if (ValidarCamposVacios()) {
+            guardarRegistro();
+        } else {
+            JOptionPane.showMessageDialog(null, "hay campos vacios, complete todos los campos", "AVISO", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
             comboDocumento.removeAllItems();
             comboDocumento.addItem("Seleccione...");
-
+            listaEmpleados.clear();
             String callProcedure = "{CALL MostrarTiposDocumentos()}";
             CallableStatement stmt = con.prepareCall(callProcedure);
             ResultSet rs = stmt.executeQuery();
@@ -349,12 +358,12 @@ public class formAdministrador extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
-    
-     public void llenarComboGenero() {
+
+    public void llenarComboGenero() {
         try (Connection con = conexion.conectar()) {
             comboGenero.removeAllItems();
             comboGenero.addItem("Seleccione...");
-
+            listaEmpleados.clear();
             String callProcedure = "{CALL MostrarTiposGeneros()}";
             CallableStatement stmt = con.prepareCall(callProcedure);
             ResultSet rs = stmt.executeQuery();
@@ -369,12 +378,12 @@ public class formAdministrador extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
-     
-      public void llenarComboCargo() {
+
+    public void llenarComboCargo() {
         try (Connection con = conexion.conectar()) {
             comboCargo.removeAllItems();
             comboCargo.addItem("Seleccione...");
-
+            listaEmpleados.clear();
             String callProcedure = "{CALL MostrarTiposCargos()}";
             CallableStatement stmt = con.prepareCall(callProcedure);
             ResultSet rs = stmt.executeQuery();
@@ -389,6 +398,53 @@ public class formAdministrador extends javax.swing.JFrame {
             System.out.println(e.toString());
         }
     }
+
+    private boolean ValidarCamposVacios() {
+
+        if (txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDocumento.getText().isEmpty()
+                || txtCorreo.getText().isEmpty() || comboCargo.getSelectedIndex() >0 || comboDocumento.getSelectedIndex() >0
+                || txtTelefono.getText().isEmpty() || txtDirreccion.getText().isEmpty() || comboGenero.getSelectedIndex() >0 || txtSalario.getText().isEmpty()
+                || dateFechanacimiento.getDate() == null || dateContratacion.getDate() == null) {
+            return false;
+        }
+        return true;
+    }
+
+   public void guardarRegistro() {
+    //if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
+        String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (Connection con = conexion.conectar()) {
+            CallableStatement stmt = con.prepareCall(callProcedure);
+            stmt.setString(1, txtNombres.getText());
+            stmt.setString(2, txtApellidos.getText());
+            stmt.setString(3, txtDocumento.getText());
+            stmt.setInt(4, comboDocumento.getSelectedIndex()); 
+            stmt.setString(5, txtTelefono.getText());
+            stmt.setString(6, txtDirreccion.getText());
+            stmt.setString(7, txtCorreo.getText());
+            stmt.setInt(8, comboGenero.getSelectedIndex());
+            java.util.Date utilDate = dateFechanacimiento.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            stmt.setDate(9, sqlDate);
+            java.util.Date utilcontra = dateContratacion.getDate();
+            java.sql.Date sqlcontra = new java.sql.Date(utilcontra.getTime());
+            stmt.setDate(10, sqlcontra);
+            stmt.setInt(11, comboCargo.getSelectedIndex());
+            stmt.setString(12, txtSalario.getText());
+
+            stmt.execute();
+            JOptionPane.showMessageDialog(rootPane, "Registro agregado");
+            con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error");
+            System.out.println(e.toString());
+        }
+   //} else {
+        JOptionPane.showMessageDialog(rootPane, "Por favor, seleccione todos los campos necesarios", "AVISO", JOptionPane.WARNING_MESSAGE);
+   // }
+}
+
 
     /**
      * @param args the command line arguments

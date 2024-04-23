@@ -1,4 +1,3 @@
-
 package logica;
 
 import java.util.Date;
@@ -8,6 +7,7 @@ import java.util.Date;
  * @author Juan
  */
 public class Empleado {
+
     private String Nombres;
     private String Apellidos;
     private String Documento;
@@ -131,6 +131,5 @@ public class Empleado {
     public void setSalirio(String Salirio) {
         this.Salirio = Salirio;
     }
-    
-    
+
 }

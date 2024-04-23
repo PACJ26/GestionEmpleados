@@ -146,17 +146,20 @@ END //
 
 DELIMITER ;
 
--- ver tabla empleado
+-- ver tabla empleado muestra todos los datos del empleado
 
 DELIMITER //
 
-CREATE PROCEDURE MostrarTablaEmpleados()
+CREATE PROCEDURE MostrarEmpleados()
 BEGIN
-    SELECT * FROM Empleado;
+    SELECT e.id, e.nombres, e.apellidos, e.documento, td.tipoDocumento, e.numeroTelefonico, e.direccion, e.correoElectronico, g.tipoGenero, e.fechaNacimiento, e.fechaContratacion, c.tipoCargo, e.salario
+    FROM Empleado e
+    INNER JOIN TipoDocumentos td ON e.tipoDocumento = td.id
+    INNER JOIN TipoGenero g ON e.genero = g.id
+    INNER JOIN TipoCargos c ON e.cargo = c.id;
 END //
 
 DELIMITER ;
-
 
 -- Procesos almacenados para reportes
 
