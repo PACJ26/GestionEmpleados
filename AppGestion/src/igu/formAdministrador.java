@@ -402,8 +402,8 @@ public class formAdministrador extends javax.swing.JFrame {
     private boolean ValidarCamposVacios() {
 
         if (txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDocumento.getText().isEmpty()
-                || txtCorreo.getText().isEmpty() || comboCargo.getSelectedIndex() >0 || comboDocumento.getSelectedIndex() >0
-                || txtTelefono.getText().isEmpty() || txtDirreccion.getText().isEmpty() || comboGenero.getSelectedIndex() >0 || txtSalario.getText().isEmpty()
+                || txtCorreo.getText().isEmpty() || comboCargo.getSelectedIndex() == 0 || comboDocumento.getSelectedIndex() == 0
+                || txtTelefono.getText().isEmpty() || txtDirreccion.getText().isEmpty() || comboGenero.getSelectedIndex() == 0 || txtSalario.getText().isEmpty()
                 || dateFechanacimiento.getDate() == null || dateContratacion.getDate() == null) {
             return false;
         }
@@ -411,7 +411,7 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
    public void guardarRegistro() {
-    //if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
+    if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
         String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (Connection con = conexion.conectar()) {
@@ -419,7 +419,7 @@ public class formAdministrador extends javax.swing.JFrame {
             stmt.setString(1, txtNombres.getText());
             stmt.setString(2, txtApellidos.getText());
             stmt.setString(3, txtDocumento.getText());
-            stmt.setInt(4, comboDocumento.getSelectedIndex()); 
+            stmt.setInt(4, comboDocumento.getSelectedIndex());
             stmt.setString(5, txtTelefono.getText());
             stmt.setString(6, txtDirreccion.getText());
             stmt.setString(7, txtCorreo.getText());
@@ -432,7 +432,6 @@ public class formAdministrador extends javax.swing.JFrame {
             stmt.setDate(10, sqlcontra);
             stmt.setInt(11, comboCargo.getSelectedIndex());
             stmt.setString(12, txtSalario.getText());
-
             stmt.execute();
             JOptionPane.showMessageDialog(rootPane, "Registro agregado");
             con.close();
@@ -440,9 +439,9 @@ public class formAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Error");
             System.out.println(e.toString());
         }
-   //} else {
+    } else {
         JOptionPane.showMessageDialog(rootPane, "Por favor, seleccione todos los campos necesarios", "AVISO", JOptionPane.WARNING_MESSAGE);
-   // }
+    }
 }
 
 
