@@ -15,13 +15,13 @@ public class Empleado {
     private String numeroTelefonico;
     private String Direccion;
     private String correoElectronico;
-    private String Genero;
+    private String tipoGenero;
     private Date fechaNacimiento;
     private Date fechaContratacion;
-    private String Cargo;
+    private String tipoCargo;
     private String Salirio;
 
-    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String Genero, Date fechaNacimiento, Date fechaContratacion, String Cargo, String Salirio) {
+    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String tipoGenero, Date fechaNacimiento, Date fechaContratacion, String tipoCargo, String Salirio) {
         this.Nombres = Nombres;
         this.Apellidos = Apellidos;
         this.Documento = Documento;
@@ -29,10 +29,10 @@ public class Empleado {
         this.numeroTelefonico = numeroTelefonico;
         this.Direccion = Direccion;
         this.correoElectronico = correoElectronico;
-        this.Genero = Genero;
+        this.tipoGenero = tipoGenero;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaContratacion = fechaContratacion;
-        this.Cargo = Cargo;
+        this.tipoCargo = tipoCargo;
         this.Salirio = Salirio;
     }
 
@@ -92,12 +92,12 @@ public class Empleado {
         this.correoElectronico = correoElectronico;
     }
 
-    public String getGenero() {
-        return Genero;
+    public String getTipoGenero() {
+        return tipoGenero;
     }
 
-    public void setGenero(String Genero) {
-        this.Genero = Genero;
+    public void setTipoGenero(String tipoGenero) {
+        this.tipoGenero = tipoGenero;
     }
 
     public Date getFechaNacimiento() {
@@ -116,12 +116,12 @@ public class Empleado {
         this.fechaContratacion = fechaContratacion;
     }
 
-    public String getCargo() {
-        return Cargo;
+    public String getTipoCargo() {
+        return tipoCargo;
     }
 
-    public void setCargo(String Cargo) {
-        this.Cargo = Cargo;
+    public void setTipoCargo(String tipoCargo) {
+        this.tipoCargo = tipoCargo;
     }
 
     public String getSalirio() {
