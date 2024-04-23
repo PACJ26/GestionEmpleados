@@ -5,6 +5,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -26,6 +27,7 @@ public class formAdministrador extends javax.swing.JFrame {
         llenarComboGenero();
         llenarComboCargo();
         ValidarCamposVacios();
+        validarDocumentoUnico();
         limpiarCampos();
     }
 
@@ -412,6 +414,10 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public void guardarRegistro() {
+          if (validarDocumentoUnico()) {
+        Mensajes.mostrarAdvertencia("El documento ya existe");
+        return; 
+    }
         if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
             String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
@@ -435,7 +441,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 stmt.setString(12, txtSalario.getText());
                 stmt.execute();
                 Mensajes.mostrarExito("Registro agregado");
-                con.close();
+                conexion.desconectar();
             } catch (SQLException e) {
                 Mensajes.mostrarError("Error al guardar el registro");
                 System.out.println(e.toString());
@@ -462,7 +468,25 @@ public class formAdministrador extends javax.swing.JFrame {
         llenarComboGenero();
         comboCargo.removeAllItems();
         llenarComboCargo();
-        
+
+    }
+
+    public boolean validarDocumentoUnico() {
+        boolean existe = false;
+
+        try (Connection con = conexion.conectar()) {
+            String callProcedure = "{CALL ValidarDocumentoUnico(?, ?)}";
+            CallableStatement stmt = con.prepareCall(callProcedure);
+            stmt.setString(1, txtDocumento.getText()); // Aquí se asume que txtDocumento es un JTextField donde se ingresa el documento
+            stmt.registerOutParameter(2, Types.BIT);
+            stmt.execute();
+
+            existe = stmt.getBoolean(2);
+        } catch (SQLException e) {
+            System.out.println("Error al validar el documento único: " + e.getMessage());
+        }
+
+        return existe;
     }
 
     /**
