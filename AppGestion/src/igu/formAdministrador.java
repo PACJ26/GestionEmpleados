@@ -27,6 +27,7 @@ public class formAdministrador extends javax.swing.JFrame {
         llenarComboGenero();
         llenarComboCargo();
         ValidarCamposVacios();
+        limpiarCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -334,8 +335,9 @@ public class formAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (ValidarCamposVacios()) {
             guardarRegistro();
+            limpiarCampos();
         } else {
-           Mensajes.mostrarAdvertencia("Hay Campos vacios");
+            Mensajes.mostrarAdvertencia("Hay Campos vacios");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -442,6 +444,26 @@ public class formAdministrador extends javax.swing.JFrame {
         } else {
             Mensajes.mostrarAdvertencia("Selecciones todos los campos requeridos");
         }
+    }
+
+    public void limpiarCampos() {
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtDocumento.setText("");
+        txtTelefono.setText("");
+        txtDirreccion.setText("");
+        txtCorreo.setText("");
+        dateFechanacimiento.setDate(null);
+        dateFechanacimiento.setDate(null);
+        txtSalario.setText("");
+
+        comboDocumento.removeAllItems();
+        llenarComboDocumento();
+        comboGenero.removeAllItems();
+        llenarComboGenero();
+        comboCargo.removeAllItems();
+        llenarComboCargo();
+        
     }
 
     /**
