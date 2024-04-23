@@ -36,6 +36,44 @@ CREATE TABLE Permiso (
 );
 
 
+-- Crear tabla tipoDocumentos
+CREATE TABLE tipoDocumentos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoDocumento VARCHAR(50) UNIQUE
+);
+
+-- Insertar tipos de documentos
+INSERT INTO tipoDocumentos (tipoDocumento) VALUES ('cedula'), ('pasaporte'), ('otro');
+
+-- Procedimiento almacenado para mostrar tipos de documentos.
+DELIMITER //
+
+CREATE PROCEDURE MostrarTiposDocumentos()
+BEGIN
+    SELECT * FROM tipoDocumentos;
+END //
+
+DELIMITER ;
+
+-- Crear tabla tipoCargos
+CREATE TABLE tipoCargos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoCargo VARCHAR(50) UNIQUE
+);
+
+-- Insertar tipos de cargos
+INSERT INTO tipoCargos (tipoCargo) VALUES ('empleado'), ('administrador'), ('gerente');
+
+-- Procedimiento almacenado para mostrar tipos de documentos.
+DELIMITER //
+
+CREATE PROCEDURE MostrarTiposCargos()
+BEGIN
+    SELECT * FROM tipoCargos;
+END //
+
+DELIMITER ;
+
 -- Proceso para registrar un empleado.
 
 DELIMITER //
