@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import logica.Empleado;
 import persistencia.Conexion;
