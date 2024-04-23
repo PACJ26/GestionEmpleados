@@ -64,12 +64,31 @@ CREATE TABLE tipoCargos (
 -- Insertar tipos de cargos
 INSERT INTO tipoCargos (tipoCargo) VALUES ('empleado'), ('administrador'), ('gerente');
 
--- Procedimiento almacenado para mostrar tipos de documentos.
+-- Procedimiento almacenado para mostrar tipos de cargos.
 DELIMITER //
 
 CREATE PROCEDURE MostrarTiposCargos()
 BEGIN
     SELECT * FROM tipoCargos;
+END //
+
+DELIMITER ;
+
+-- Crear tabla Genero
+CREATE TABLE tipoGenero (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoGenero VARCHAR(50) UNIQUE
+);
+
+-- Insertar tipos de Generos
+INSERT INTO tipoGenero (tipoGenero) VALUES ('Masculino'), ('Femenino'), ('Otro');
+
+-- Procedimiento almacenado para mostrar tipos de generos.
+DELIMITER //
+
+CREATE PROCEDURE MostrarTiposGeneros()
+BEGIN
+    SELECT * FROM tipoGenero;
 END //
 
 DELIMITER ;
