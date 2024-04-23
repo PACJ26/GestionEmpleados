@@ -1,5 +1,6 @@
 package igu;
 
+import Utilidad.Mensajes;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -334,7 +335,7 @@ public class formAdministrador extends javax.swing.JFrame {
         if (ValidarCamposVacios()) {
             guardarRegistro();
         } else {
-            JOptionPane.showMessageDialog(null, "hay campos vacios, complete todos los campos", "AVISO", JOptionPane.WARNING_MESSAGE);
+           Mensajes.mostrarAdvertencia("Hay Campos vacios");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -409,40 +410,39 @@ public class formAdministrador extends javax.swing.JFrame {
         return true;
     }
 
-   public void guardarRegistro() {
-    if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
-        String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+    public void guardarRegistro() {
+        if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
+            String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection con = conexion.conectar()) {
-            CallableStatement stmt = con.prepareCall(callProcedure);
-            stmt.setString(1, txtNombres.getText());
-            stmt.setString(2, txtApellidos.getText());
-            stmt.setString(3, txtDocumento.getText());
-            stmt.setInt(4, comboDocumento.getSelectedIndex());
-            stmt.setString(5, txtTelefono.getText());
-            stmt.setString(6, txtDirreccion.getText());
-            stmt.setString(7, txtCorreo.getText());
-            stmt.setInt(8, comboGenero.getSelectedIndex());
-            java.util.Date utilDate = dateFechanacimiento.getDate();
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            stmt.setDate(9, sqlDate);
-            java.util.Date utilcontra = dateContratacion.getDate();
-            java.sql.Date sqlcontra = new java.sql.Date(utilcontra.getTime());
-            stmt.setDate(10, sqlcontra);
-            stmt.setInt(11, comboCargo.getSelectedIndex());
-            stmt.setString(12, txtSalario.getText());
-            stmt.execute();
-            JOptionPane.showMessageDialog(rootPane, "Registro agregado");
-            con.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error");
-            System.out.println(e.toString());
+            try (Connection con = conexion.conectar()) {
+                CallableStatement stmt = con.prepareCall(callProcedure);
+                stmt.setString(1, txtNombres.getText());
+                stmt.setString(2, txtApellidos.getText());
+                stmt.setString(3, txtDocumento.getText());
+                stmt.setInt(4, comboDocumento.getSelectedIndex());
+                stmt.setString(5, txtTelefono.getText());
+                stmt.setString(6, txtDirreccion.getText());
+                stmt.setString(7, txtCorreo.getText());
+                stmt.setInt(8, comboGenero.getSelectedIndex());
+                java.util.Date utilDate = dateFechanacimiento.getDate();
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                stmt.setDate(9, sqlDate);
+                java.util.Date utilcontra = dateContratacion.getDate();
+                java.sql.Date sqlcontra = new java.sql.Date(utilcontra.getTime());
+                stmt.setDate(10, sqlcontra);
+                stmt.setInt(11, comboCargo.getSelectedIndex());
+                stmt.setString(12, txtSalario.getText());
+                stmt.execute();
+                Mensajes.mostrarExito("Registro agregado");
+                con.close();
+            } catch (SQLException e) {
+                Mensajes.mostrarError("Error al guardar el registro");
+                System.out.println(e.toString());
+            }
+        } else {
+            Mensajes.mostrarAdvertencia("Selecciones todos los campos requeridos");
         }
-    } else {
-        JOptionPane.showMessageDialog(rootPane, "Por favor, seleccione todos los campos necesarios", "AVISO", JOptionPane.WARNING_MESSAGE);
     }
-}
-
 
     /**
      * @param args the command line arguments
