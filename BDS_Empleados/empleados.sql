@@ -133,10 +133,12 @@ CREATE PROCEDURE ValidarDocumentoUnico(
 BEGIN
     DECLARE contador INT;
 
+    -- Contar el número de registros con el mismo documento
     SELECT COUNT(*) INTO contador
     FROM Empleado
     WHERE documento = p_documento;
 
+    -- Si el contador es mayor que cero, significa que el documento ya existe
     IF contador > 0 THEN
         SET p_existe = TRUE;
     ELSE
@@ -145,6 +147,7 @@ BEGIN
 END //
 
 DELIMITER ;
+
 
 -- ver tabla empleado muestra todos los datos del empleado
 
