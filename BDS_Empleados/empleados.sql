@@ -39,7 +39,7 @@ CREATE TABLE Permiso (
 -- Crear tabla tipoDocumentos
 CREATE TABLE tipoDocumentos (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoDocumento VARCHAR(50) UNIQUE
+    tipoDocumento VARCHAR(50) 
 );
 
 -- Insertar tipos de documentos
@@ -58,7 +58,7 @@ DELIMITER ;
 -- Crear tabla tipoCargos
 CREATE TABLE tipoCargos (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoCargo VARCHAR(50) UNIQUE
+    tipoCargo VARCHAR(50) 
 );
 
 -- Insertar tipos de cargos
@@ -77,7 +77,7 @@ DELIMITER ;
 -- Crear tabla Genero
 CREATE TABLE tipoGenero (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoGenero VARCHAR(50) UNIQUE
+    tipoGenero VARCHAR(50) 
 );
 
 -- Insertar tipos de Generos
