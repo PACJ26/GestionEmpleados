@@ -163,7 +163,7 @@ BEGIN
 END //
 
 DELIMITER ;
-
+ call MostrarEmpleados();
 -- Procesos almacenados para reportes
 
 /*1. Reporte de hora de entrada y salida*/

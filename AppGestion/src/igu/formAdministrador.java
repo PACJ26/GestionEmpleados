@@ -4,9 +4,14 @@ import Utilidad.Mensajes;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
 
@@ -28,7 +33,9 @@ public class formAdministrador extends javax.swing.JFrame {
         llenarComboCargo();
         ValidarCamposVacios();
         validarDocumentoUnico();
+        mostrarInfo();
         limpiarCampos();
+        ajustarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -62,10 +69,10 @@ public class formAdministrador extends javax.swing.JFrame {
         comboCargo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
-        panelBotones = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaRegistro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,22 +176,12 @@ public class formAdministrador extends javax.swing.JFrame {
         txtSalario.setForeground(new java.awt.Color(0, 0, 0));
         txtSalario.setText("jTextField1");
 
-        panelBotones.setBackground(new java.awt.Color(204, 255, 255));
-        panelBotones.setLayout(new java.awt.GridLayout());
-
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        panelBotones.add(btnRegistrar);
-
-        btnConsultar.setText("Consultar");
-        panelBotones.add(btnConsultar);
-
-        jButton3.setText("nose que va");
-        panelBotones.add(jButton3);
 
         javax.swing.GroupLayout PanelRegistroLayout = new javax.swing.GroupLayout(PanelRegistro);
         PanelRegistro.setLayout(PanelRegistroLayout);
@@ -207,10 +204,12 @@ public class formAdministrador extends javax.swing.JFrame {
                             .addGroup(PanelRegistroLayout.createSequentialGroup()
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(PanelRegistroLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(jLabel10))
-                                    .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)))
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                                         .addGap(13, 13, 13)
@@ -251,11 +250,11 @@ public class formAdministrador extends javax.swing.JFrame {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(56, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(126, 126, 126))
+                        .addContainerGap(11, Short.MAX_VALUE))))
+            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                .addGap(288, 288, 288)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelRegistroLayout.setVerticalGroup(
             PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,12 +299,44 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(dateContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         JTab.addTab("Registrar", PanelRegistro);
+
+        tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaRegistro);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        JTab.addTab("Consultas", jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -341,6 +372,22 @@ public class formAdministrador extends javax.swing.JFrame {
             Mensajes.mostrarAdvertencia("Hay Campos vacios");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    public void ajustarTabla() {
+        int totalColumnas = 12;
+        for (int i = 0; i < totalColumnas; i++) {
+            tablaRegistro.getColumnModel().getColumn(i).setPreferredWidth(125);
+            tablaRegistro.getColumnModel().getColumn(i).setResizable(false);
+            tablaRegistro.setRowHeight(15);
+        }
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < totalColumnas; i++) {
+            tablaRegistro.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
+        }
+
+    }
 
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
@@ -414,10 +461,10 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public void guardarRegistro() {
-          if (validarDocumentoUnico()) {
-        Mensajes.mostrarAdvertencia("El documento ya existe");
-        return; 
-    }
+        if (validarDocumentoUnico()) {
+            Mensajes.mostrarAdvertencia("El documento ya existe");
+            return;
+        }
         if (comboDocumento.getSelectedIndex() != -1 && comboGenero.getSelectedIndex() != -1 && comboCargo.getSelectedIndex() != -1) {
             String callProcedure = "{CALL RegistrarEmpleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
@@ -441,6 +488,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 stmt.setString(12, txtSalario.getText());
                 stmt.execute();
                 Mensajes.mostrarExito("Registro agregado");
+                mostrarInfo();
                 conexion.desconectar();
             } catch (SQLException e) {
                 Mensajes.mostrarError("Error al guardar el registro");
@@ -459,7 +507,7 @@ public class formAdministrador extends javax.swing.JFrame {
         txtDirreccion.setText("");
         txtCorreo.setText("");
         dateFechanacimiento.setDate(null);
-        dateFechanacimiento.setDate(null);
+        dateContratacion.setDate(null);
         txtSalario.setText("");
 
         comboDocumento.removeAllItems();
@@ -477,7 +525,7 @@ public class formAdministrador extends javax.swing.JFrame {
         try (Connection con = conexion.conectar()) {
             String callProcedure = "{CALL ValidarDocumentoUnico(?, ?)}";
             CallableStatement stmt = con.prepareCall(callProcedure);
-            stmt.setString(1, txtDocumento.getText()); // Aquí se asume que txtDocumento es un JTextField donde se ingresa el documento
+            stmt.setString(1, txtDocumento.getText());
             stmt.registerOutParameter(2, Types.BIT);
             stmt.execute();
 
@@ -487,6 +535,35 @@ public class formAdministrador extends javax.swing.JFrame {
         }
 
         return existe;
+    }
+
+    public void mostrarInfo() {
+        try (Connection con = conexion.conectar()) {
+
+            DefaultTableModel model = new DefaultTableModel();
+
+            Statement statement = con.createStatement();
+
+            String query = "call MostrarEmpleados()";
+            ResultSet resultSet = statement.executeQuery(query);
+            ResultSetMetaData metaData = resultSet.getMetaData();
+
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                model.addColumn(metaData.getColumnLabel(i));
+            }
+
+            while (resultSet.next()) {
+                Object[] filas = new Object[metaData.getColumnCount()];
+                for (int i = 0; i < metaData.getColumnCount(); i++) {
+                    filas[i] = resultSet.getObject(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tablaRegistro.setModel(model);
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
     }
 
     /**
@@ -527,14 +604,12 @@ public class formAdministrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane JTab;
     private javax.swing.JPanel PanelRegistro;
-    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboDocumento;
     private javax.swing.JComboBox<String> comboGenero;
     private com.toedter.calendar.JDateChooser dateContratacion;
     private com.toedter.calendar.JDateChooser dateFechanacimiento;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -548,7 +623,9 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaRegistro;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDirreccion;
