@@ -9,6 +9,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
@@ -369,8 +370,6 @@ public class formAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-   
-
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
             comboDocumento.removeAllItems();
@@ -385,7 +384,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 System.out.println("Tipo de documento: " + tipoDocumento);
                 comboDocumento.addItem(tipoDocumento);
             }
-            con.close();
+            conexion.desconectar();
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
@@ -405,7 +404,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 System.out.println("Tipo de generos: " + tipoGenero);
                 comboGenero.addItem(tipoGenero);
             }
-            con.close();
+            conexion.desconectar();
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
@@ -425,7 +424,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 System.out.println("Tipo de cargos: " + tipoCargo);
                 comboCargo.addItem(tipoCargo);
             }
-            con.close();
+            conexion.desconectar();
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
@@ -467,7 +466,8 @@ public class formAdministrador extends javax.swing.JFrame {
                 java.sql.Date sqlcontra = new java.sql.Date(utilcontra.getTime());
                 stmt.setDate(10, sqlcontra);
                 stmt.setInt(11, comboCargo.getSelectedIndex());
-                stmt.setString(12, txtSalario.getText());
+                String salarioFormateado = formatearSalario(txtSalario.getText());
+                stmt.setString(12, salarioFormateado);
                 stmt.execute();
                 Mensajes.mostrarExito("Registro agregado");
                 mostrarInfo();
@@ -479,6 +479,20 @@ public class formAdministrador extends javax.swing.JFrame {
         } else {
             Mensajes.mostrarAdvertencia("Selecciones todos los campos requeridos");
         }
+    }
+
+    public String formatearSalario(String salario) {
+        // Eliminar cualquier caracter que no sea un numero o un punto decimal
+        salario = salario.replaceAll("[^\\d.]", "");
+
+        // Convertir la cadena a un valor numerico
+        double salarioNumerico = Double.parseDouble(salario);
+
+        // Formatear el salario segun el formato deseado
+        DecimalFormat formatoSalario = new DecimalFormat("$ #,###.###");
+        String salarioFormateado = formatoSalario.format(salarioNumerico);
+
+        return salarioFormateado;
     }
 
     public void limpiarCampos() {
@@ -512,6 +526,7 @@ public class formAdministrador extends javax.swing.JFrame {
             stmt.execute();
 
             existe = stmt.getBoolean(2);
+            conexion.desconectar();
         } catch (SQLException e) {
             System.out.println("Error al validar el documento único: " + e.getMessage());
         }
@@ -526,7 +541,7 @@ public class formAdministrador extends javax.swing.JFrame {
             String query = "call MostrarEmpleados()";
             ResultSet resultSet = statement.executeQuery(query);
             ResultSetMetaData metaData = resultSet.getMetaData();
-            
+
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 model.addColumn(metaData.getColumnLabel(i));
             }
@@ -540,7 +555,7 @@ public class formAdministrador extends javax.swing.JFrame {
             }
             tablaRegistro.setModel(model);
             ajustesTablas.ajustarTabla(tablaRegistro);
-
+            conexion.desconectar();
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
