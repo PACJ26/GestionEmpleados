@@ -1,6 +1,7 @@
 package igu;
 
 import Utilidad.Mensajes;
+import Utilidad.ajustesTablas;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,7 +34,6 @@ public class formAdministrador extends javax.swing.JFrame {
         validarDocumentoUnico();
         mostrarInfo();
         limpiarCampos();
-        ajustarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -201,13 +201,11 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(PanelRegistroLayout.createSequentialGroup()
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelRegistroLayout.createSequentialGroup()
-                                        .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)))
+                                        .addComponent(jLabel10)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                                         .addGap(13, 13, 13)
@@ -248,7 +246,7 @@ public class formAdministrador extends javax.swing.JFrame {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(11, Short.MAX_VALUE))))
+                        .addContainerGap(57, Short.MAX_VALUE))))
             .addGroup(PanelRegistroLayout.createSequentialGroup()
                 .addGap(288, 288, 288)
                 .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,14 +369,7 @@ public class formAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    public void ajustarTabla() {
-        int totalColumnas = 12;
-        for (int i = 0; i < totalColumnas; i++) {
-            tablaRegistro.getColumnModel().getColumn(i).setPreferredWidth(125);
-            tablaRegistro.getColumnModel().getColumn(i).setResizable(false);
-            tablaRegistro.setRowHeight(15);
-        }
-    }
+   
 
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
@@ -530,15 +521,12 @@ public class formAdministrador extends javax.swing.JFrame {
 
     public void mostrarInfo() {
         try (Connection con = conexion.conectar()) {
-
             DefaultTableModel model = new DefaultTableModel();
-
             Statement statement = con.createStatement();
-
             String query = "call MostrarEmpleados()";
             ResultSet resultSet = statement.executeQuery(query);
             ResultSetMetaData metaData = resultSet.getMetaData();
-
+            
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 model.addColumn(metaData.getColumnLabel(i));
             }
@@ -551,6 +539,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 model.addRow(filas);
             }
             tablaRegistro.setModel(model);
+            ajustesTablas.ajustarTabla(tablaRegistro);
 
         } catch (SQLException e) {
             System.out.println(e.toString());
