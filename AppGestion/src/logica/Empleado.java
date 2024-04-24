@@ -19,9 +19,9 @@ public class Empleado {
     private Date fechaNacimiento;
     private Date fechaContratacion;
     private String tipoCargo;
-    private String Salirio;
+    private String Salario;
 
-    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String tipoGenero, Date fechaNacimiento, Date fechaContratacion, String tipoCargo, String Salirio) {
+    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String tipoGenero, Date fechaNacimiento, Date fechaContratacion, String tipoCargo, String Salario) {
         this.Nombres = Nombres;
         this.Apellidos = Apellidos;
         this.Documento = Documento;
@@ -33,7 +33,7 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaContratacion = fechaContratacion;
         this.tipoCargo = tipoCargo;
-        this.Salirio = Salirio;
+        this.Salario = Salario;
     }
 
     public String getNombres() {
@@ -124,12 +124,12 @@ public class Empleado {
         this.tipoCargo = tipoCargo;
     }
 
-    public String getSalirio() {
-        return Salirio;
+    public String getSalario() {
+        return Salario;
     }
 
-    public void setSalirio(String Salirio) {
-        this.Salirio = Salirio;
+    public void setSalario(String Salario) {
+        this.Salario = Salario;
     }
 
 }
