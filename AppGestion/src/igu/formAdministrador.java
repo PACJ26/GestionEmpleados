@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -380,13 +378,6 @@ public class formAdministrador extends javax.swing.JFrame {
             tablaRegistro.getColumnModel().getColumn(i).setResizable(false);
             tablaRegistro.setRowHeight(15);
         }
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for (int i = 0; i < totalColumnas; i++) {
-            tablaRegistro.getColumnModel().getColumn(i).setHeaderRenderer(centerRenderer);
-        }
-
     }
 
     public void llenarComboDocumento() {
