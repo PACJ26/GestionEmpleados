@@ -1,21 +1,16 @@
-
 package logica;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
-/**
- *
- * @author Juan
- */
 public class RegistroEntradaSalida {
     private Empleado empleado;
-    private Date Fecha;
-    private Date horaEntrada;
-    private Date horaSalida;
+    private Timestamp fecha;
+    private Timestamp horaEntrada;
+    private Timestamp horaSalida;
 
-    public RegistroEntradaSalida(Empleado empleado, Date Fecha, Date horaEntrada, Date horaSalida) {
+    public RegistroEntradaSalida(Empleado empleado, Timestamp fecha, Timestamp horaEntrada, Timestamp horaSalida) {
         this.empleado = empleado;
-        this.Fecha = Fecha;
+        this.fecha = fecha;
         this.horaEntrada = horaEntrada;
         this.horaSalida = horaSalida;
     }
@@ -28,29 +23,27 @@ public class RegistroEntradaSalida {
         this.empleado = empleado;
     }
 
-    public Date getFecha() {
-        return Fecha;
+    public Timestamp getFecha() {
+        return fecha;
     }
 
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
     }
 
-    public Date getHoraEntrada() {
+    public Timestamp getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(Date horaEntrada) {
+    public void setHoraEntrada(Timestamp horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public Date getHoraSalida() {
+    public Timestamp getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Date horaSalida) {
+    public void setHoraSalida(Timestamp horaSalida) {
         this.horaSalida = horaSalida;
     }
-    
-    
 }
