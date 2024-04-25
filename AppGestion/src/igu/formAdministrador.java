@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -23,11 +26,14 @@ public class formAdministrador extends javax.swing.JFrame {
 
     Conexion conexion;
     ArrayList<Empleado> listaEmpleados;
-
+    LocalDate fechaActual = LocalDate.now();
+    LocalDate fechaHace18Anios = fechaActual.minusYears(18);
+    Date fechaHace18AniosDate = Date.from(fechaHace18Anios.atStartOfDay(ZoneId.systemDefault()).toInstant());
     public formAdministrador() {
         listaEmpleados = new ArrayList();
         conexion = new Conexion();
         initComponents();
+        dateFechanacimiento.setMaxSelectableDate(fechaHace18AniosDate);
         llenarComboDocumento();
         llenarComboGenero();
         llenarComboCargo();
