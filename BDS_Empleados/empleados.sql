@@ -1,6 +1,20 @@
+-- drop database empleados;
 create database empleados;
 use empleados;
 
+CREATE TABLE tipoCargos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoCargo VARCHAR(50) 
+);
+
+CREATE TABLE tipoGenero (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoGenero VARCHAR(50) 
+);
+CREATE TABLE tipoDocumentos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipoDocumento VARCHAR(50) 
+);
 CREATE TABLE Empleado (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombres VARCHAR(100),
@@ -14,7 +28,8 @@ CREATE TABLE Empleado (
     fechaNacimiento DATE,
     fechaContratacion DATE,
     cargo VARCHAR(50),
-    salario varchar(50)
+    salario varchar(50), Fk_TipoDocumento int,Fk_TipoCargos int , Fk_TipoGenero int, foreign key(Fk_TipoDocumento) references empleados.tipoDocumentos(id),
+    foreign key(Fk_TipoCargos) references empleados.tipoCargos(id), foreign key(Fk_TipoGenero) references empleados.tipoGenero(id)
 );
 
 CREATE TABLE RegistroEntradaSalida (
@@ -37,10 +52,7 @@ CREATE TABLE Permiso (
 
 
 -- Crear tabla tipoDocumentos
-CREATE TABLE tipoDocumentos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoDocumento VARCHAR(50) 
-);
+
 
 -- Insertar tipos de documentos
 INSERT INTO tipoDocumentos (tipoDocumento) VALUES ('cedula'), ('pasaporte'), ('otro');
@@ -56,10 +68,6 @@ END //
 DELIMITER ;
 
 -- Crear tabla tipoCargos
-CREATE TABLE tipoCargos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoCargo VARCHAR(50) 
-);
 
 -- Insertar tipos de cargos
 INSERT INTO tipoCargos (tipoCargo) VALUES ('empleado'), ('administrador'), ('gerente');
@@ -75,10 +83,7 @@ END //
 DELIMITER ;
 
 -- Crear tabla Genero
-CREATE TABLE tipoGenero (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    tipoGenero VARCHAR(50) 
-);
+
 
 -- Insertar tipos de Generos
 INSERT INTO tipoGenero (tipoGenero) VALUES ('Masculino'), ('Femenino'), ('Otro');
