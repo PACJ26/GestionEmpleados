@@ -20,16 +20,13 @@ CREATE TABLE Empleado (
     nombres VARCHAR(100),
     apellidos VARCHAR(100),
     documento VARCHAR(20),
-    tipoDocumento VARCHAR(20),
     numeroTelefonico VARCHAR(20),
     direccion VARCHAR(100),
     correoElectronico VARCHAR(100),
-    genero VARCHAR(10),
     fechaNacimiento DATE,
     fechaContratacion DATE,
-    cargo VARCHAR(50),
-    salario varchar(50), Fk_TipoDocumento int,Fk_TipoCargos int , Fk_TipoGenero int, foreign key(Fk_TipoDocumento) references empleados.tipoDocumentos(id),
-    foreign key(Fk_TipoCargos) references empleados.tipoCargos(id), foreign key(Fk_TipoGenero) references empleados.tipoGenero(id)
+    salario varchar(50), tipoDocumento int,cargo int , genero int, foreign key(tipoDocumento) references empleados.tipoDocumentos(id),
+    foreign key(cargo) references empleados.tipoCargos(id), foreign key(genero) references empleados.tipoGenero(id)
 );
 
 CREATE TABLE RegistroEntradaSalida (
@@ -162,13 +159,12 @@ CREATE PROCEDURE MostrarEmpleados()
 BEGIN
     SELECT e.id, e.nombres, e.apellidos, e.documento, td.tipoDocumento, e.numeroTelefonico, e.direccion, e.correoElectronico, g.tipoGenero, e.fechaNacimiento, e.fechaContratacion, c.tipoCargo, e.salario
     FROM Empleado e
-    INNER JOIN TipoDocumentos td ON e.tipoDocumento = td.id
-    INNER JOIN TipoGenero g ON e.genero = g.id
-    INNER JOIN TipoCargos c ON e.cargo = c.id;
+    INNER JOIN TipoDocumentos td ON td.id=e.tipoDocumento
+    INNER JOIN TipoGenero g ON g.id=e.genero
+    INNER JOIN TipoCargos c ON c.id=e.cargo;
 END //
 
 DELIMITER ;
- call MostrarEmpleados();
 -- Procesos almacenados para reportes
 
 /*1. Reporte de hora de entrada y salida*/
