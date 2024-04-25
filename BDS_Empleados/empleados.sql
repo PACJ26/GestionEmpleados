@@ -1,4 +1,4 @@
--- drop database empleados;
+drop database empleados;
 create database empleados;
 use empleados;
 
