@@ -35,8 +35,103 @@ CREATE TABLE RegistroEntradaSalida (
     fecha DATE,
     horaEntrada TIME,
     horaSalida TIME,
+	UNIQUE (id_empleado, fecha), 
     FOREIGN KEY (id_empleado) REFERENCES Empleado(id)
 );
+
+
+
+-- proceso almacenado de registrar salida y entrada
+
+DELIMITER //
+
+CREATE PROCEDURE RegistrarEntradaEmpleado(
+    IN p_documento VARCHAR(20),
+    IN p_fecha DATE,
+    IN p_horaEntrada TIME,
+    OUT p_mensaje VARCHAR(100) -- Parámetro de salida para el mensaje
+)
+BEGIN
+    DECLARE v_empleado_id INT;
+
+    -- Verificar si el documento del empleado existe en la tabla de empleados
+    SELECT id INTO v_empleado_id
+    FROM Empleado
+    WHERE documento = p_documento;
+
+    -- Si el documento del empleado no existe, mostrar un mensaje de error y salir del procedimiento
+    IF v_empleado_id IS NULL THEN
+        SET p_mensaje = 'Documento no existe'; -- Asignar el mensaje de error
+    ELSE
+        -- Verificar si ya existe un registro de entrada para este empleado en la fecha proporcionada
+        IF NOT EXISTS (
+            SELECT 1
+            FROM RegistroEntradaSalida
+            WHERE id_empleado = v_empleado_id
+            AND fecha = p_fecha
+        ) THEN
+            -- Insertar el registro de entrada para el empleado si no existe
+            INSERT INTO RegistroEntradaSalida (id_empleado, fecha, horaEntrada)
+            VALUES (v_empleado_id, p_fecha, p_horaEntrada);
+            SET p_mensaje = 'Registro de entrada ingresado exitosamente.'; -- Asignar el mensaje de éxito
+        ELSE
+            SET p_mensaje = 'Ya se ha registrado la entrada para este empleado en la fecha proporcionada.'; -- Asignar el mensaje de entrada duplicada
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE RegistrarSalidaEmpleado(
+    IN p_documento VARCHAR(20),
+    IN p_fecha DATE,
+    IN p_horaSalida TIME,
+    OUT p_mensaje VARCHAR(100) -- Parámetro de salida para el mensaje
+)
+BEGIN
+    DECLARE v_empleado_id INT;
+
+    -- Verificar si el documento del empleado existe en la tabla de empleados
+    SELECT id INTO v_empleado_id
+    FROM Empleado
+    WHERE documento = p_documento;
+
+    -- Si el documento del empleado no existe, mostrar un mensaje de error y salir del procedimiento
+    IF v_empleado_id IS NULL THEN
+        SET p_mensaje = 'Documento no existe'; -- Asignar el mensaje de error
+    ELSE
+        -- Verificar si ya existe un registro de salida para este empleado en la fecha proporcionada
+        IF NOT EXISTS (
+            SELECT 1
+            FROM RegistroEntradaSalida
+            WHERE id_empleado = v_empleado_id
+            AND fecha = p_fecha
+            AND horaSalida IS NOT NULL
+        ) THEN
+            -- Actualizar el registro de salida para el empleado si no existe
+            UPDATE RegistroEntradaSalida
+            SET horaSalida = p_horaSalida
+            WHERE id_empleado = v_empleado_id
+            AND fecha = p_fecha;
+            SET p_mensaje = 'Registro de salida actualizado exitosamente.'; 
+        ELSE
+            SET p_mensaje = 'Ya se ha registrado la salida para este empleado en la fecha proporcionada.'; -- Asignar el mensaje de salida duplicada
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+-- Llamar al procedimiento con valores de prueba
+CALL RegistrarEntradaEmpleado('adasdas', '2024-04-25', '08:00:00');
+
+
+
+
 
 CREATE TABLE Permiso (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -46,10 +141,6 @@ CREATE TABLE Permiso (
     motivo VARCHAR(100),
     FOREIGN KEY (id_empleado) REFERENCES Empleado(id)
 );
-
-
--- Crear tabla tipoDocumentos
-
 
 -- Insertar tipos de documentos
 INSERT INTO tipoDocumentos (tipoDocumento) VALUES ('cedula'), ('pasaporte'), ('otro');
@@ -78,9 +169,6 @@ BEGIN
 END //
 
 DELIMITER ;
-
--- Crear tabla Genero
-
 
 -- Insertar tipos de Generos
 INSERT INTO tipoGenero (tipoGenero) VALUES ('Masculino'), ('Femenino'), ('Otro');

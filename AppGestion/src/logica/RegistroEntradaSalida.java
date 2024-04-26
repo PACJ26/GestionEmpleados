@@ -46,4 +46,6 @@ public class RegistroEntradaSalida {
     public void setHoraSalida(Timestamp horaSalida) {
         this.horaSalida = horaSalida;
     }
+    
+    
 }
