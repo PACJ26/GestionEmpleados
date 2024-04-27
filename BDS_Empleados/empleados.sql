@@ -332,6 +332,39 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE IniciarSesion(
+    IN p_documento VARCHAR(20),
+    IN p_clave VARCHAR(20),
+    OUT p_mensaje VARCHAR(100)
+)
+BEGIN
+    DECLARE v_empleado_id INT;
+
+    -- Verificar si el documento del empleado existe en la tabla de empleados
+    SELECT id INTO v_empleado_id
+    FROM Empleado
+    WHERE documento = p_documento;
+
+    -- Si el documento del empleado no existe, mostrar un mensaje de error y salir del procedimiento
+    IF v_empleado_id IS NULL THEN
+        SET p_mensaje = 'Usuario no encontrado'; -- Asignar el mensaje de error
+    ELSE
+        -- Verificar si la clave proporcionada coincide con el documento del empleado
+        IF EXISTS (
+            SELECT 1
+            FROM Empleado
+            WHERE id = v_empleado_id AND documento = p_clave
+        ) THEN
+            SET p_mensaje = 'Inicio de sesión exitoso'; -- Asignar el mensaje de éxito
+        ELSE
+            SET p_mensaje = 'Clave incorrecta'; -- Asignar el mensaje de clave incorrecta
+        END IF;
+    END IF;
+END
+
+DELIMITER ;
 
 
 
