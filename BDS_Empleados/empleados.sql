@@ -1,4 +1,4 @@
-drop database empleados;
+-- drop database empleados;
 create database empleados;
 use empleados;
 
@@ -25,9 +25,14 @@ CREATE TABLE Empleado (
     correoElectronico VARCHAR(100),
     fechaNacimiento DATE,
     fechaContratacion DATE,
-    salario varchar(50), tipoDocumento int,cargo int , genero int, foreign key(tipoDocumento) references empleados.tipoDocumentos(id),
+    salario varchar(50),
+    clave varchar(20), tipoDocumento int,cargo int , genero int, foreign key(tipoDocumento) references empleados.tipoDocumentos(id),
     foreign key(cargo) references empleados.tipoCargos(id), foreign key(genero) references empleados.tipoGenero(id)
 );
+
+
+
+
 
 CREATE TABLE RegistroEntradaSalida (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -184,37 +189,38 @@ END //
 DELIMITER ;
 
 -- Proceso para registrar un empleado.
-
 DELIMITER //
-
 CREATE PROCEDURE RegistrarEmpleado(
     IN p_nombres VARCHAR(100),
     IN p_apellidos VARCHAR(100),
     IN p_documento VARCHAR(20),
-    IN p_tipoDocumento VARCHAR(20),
+    IN p_tipoDocumento INT, 
     IN p_numeroTelefonico VARCHAR(20),
     IN p_direccion VARCHAR(100),
     IN p_correoElectronico VARCHAR(100),
-    IN p_genero VARCHAR(10),
+    IN p_genero INT, 
     IN p_fechaNacimiento DATE,
     IN p_fechaContratacion DATE,
-    IN p_cargo VARCHAR(50),
-    IN p_salario VARCHAR(50)
+    IN p_cargo INT,
+    IN p_salario VARCHAR(50),
+    IN p_clave VARCHAR(20) 
 )
 BEGIN
-    INSERT INTO Empleado (nombres, apellidos, documento, tipoDocumento, numeroTelefonico,
+    INSERT INTO Empleado (nombres, apellidos, documento, clave, tipoDocumento, numeroTelefonico,
                          direccion, correoElectronico, genero, fechaNacimiento, fechaContratacion,
                          cargo, salario)
-    VALUES (p_nombres, p_apellidos, p_documento, p_tipoDocumento, p_numeroTelefonico,
+    VALUES (p_nombres, p_apellidos, p_documento, p_clave, p_tipoDocumento, p_numeroTelefonico,
             p_direccion, p_correoElectronico, p_genero, p_fechaNacimiento, p_fechaContratacion,
             p_cargo, p_salario);
 END //
 
 DELIMITER ;
 
+
 -- proceso validar documento
 
 DELIMITER //
+
 
 CREATE PROCEDURE ValidarDocumentoUnico(
     IN p_documento VARCHAR(20),
@@ -245,7 +251,7 @@ DELIMITER //
 
 CREATE PROCEDURE MostrarEmpleados()
 BEGIN
-    SELECT e.id, e.nombres, e.apellidos, e.documento, td.tipoDocumento, e.numeroTelefonico, e.direccion, e.correoElectronico, g.tipoGenero, e.fechaNacimiento, e.fechaContratacion, c.tipoCargo, e.salario
+    SELECT e.id, e.nombres, e.apellidos, e.documento, td.tipoDocumento, e.numeroTelefonico, e.direccion, e.correoElectronico, g.tipoGenero, e.fechaNacimiento, e.fechaContratacion, c.tipoCargo, e.salario, e.clave
     FROM Empleado e
     INNER JOIN TipoDocumentos td ON td.id=e.tipoDocumento
     INNER JOIN TipoGenero g ON g.id=e.genero
@@ -253,6 +259,8 @@ BEGIN
 END //
 
 DELIMITER ;
+
+call MostrarEmpleados();
 -- Procesos almacenados para reportes
 
 /*1. Reporte de hora de entrada y salida*/
@@ -340,44 +348,64 @@ DELIMITER ;
 
 DELIMITER //
 
+
+
+
+DELIMITER //
+
 CREATE PROCEDURE IniciarSesion(
     IN p_documento VARCHAR(20),
-    IN p_clave VARCHAR(20),
-    OUT p_mensaje VARCHAR(100)
+    IN p_clave VARCHAR(20)
 )
 BEGIN
-    DECLARE v_empleado_id INT;
+    DECLARE v_count INT;
 
-    -- Verificar si el documento del empleado existe en la tabla de empleados
-    SELECT id INTO v_empleado_id
+    -- Verificar si el usuario existe con el documento proporcionado
+    SELECT COUNT(*) INTO v_count
     FROM Empleado
     WHERE documento = p_documento;
 
-    -- Si el documento del empleado no existe, mostrar un mensaje de error y salir del procedimiento
-    IF v_empleado_id IS NULL THEN
-        SET p_mensaje = 'Usuario no encontrado'; -- Asignar el mensaje de error
+    IF v_count = 0 THEN
+        SELECT 'Usuario no encontrado' AS mensaje;
     ELSE
-        -- Verificar si la clave proporcionada coincide con el documento del empleado
-        IF EXISTS (
-            SELECT 1
-            FROM Empleado
-            WHERE id = v_empleado_id AND documento = p_clave
-        ) THEN
-            SET p_mensaje = 'Inicio de sesión exitoso'; -- Asignar el mensaje de éxito
+        -- Verificar si la clave coincide
+        SELECT COUNT(*) INTO v_count
+        FROM Empleado
+        WHERE documento = p_documento AND clave = p_clave;
+
+        IF v_count = 0 THEN
+            SELECT 'Clave incorrecta' AS mensaje;
         ELSE
-            SET p_mensaje = 'Clave incorrecta'; -- Asignar el mensaje de clave incorrecta
+            SELECT 'Inicio de sesión exitoso' AS mensaje;
         END IF;
     END IF;
-END
+END //
 
 DELIMITER ;
 
 
+
+DELIMITER //
+
+CREATE PROCEDURE ObtenerCargoEmpleado(
+    IN p_documento VARCHAR(20)
+)
+BEGIN
+    -- Obtener el cargo del empleado
+    SELECT cargo
+    FROM Empleado
+    WHERE documento = p_documento;
+END //
+
+DELIMITER ;
+
+
+
 -- ejemplos insercion empleados
 
-CALL RegistrarEmpleado('Juan', 'Perez', '1234567890', '1', '1234567890', 'Calle 123', 'juan@example.com', '1', '1990-01-01', '2024-04-26', '3', '50000');
-CALL RegistrarEmpleado('Maria', 'Lopez', '0987654321', '1', '0987654321', 'Avenida 456', 'maria@example.com', '2', '1995-05-15', '2024-04-26', '1', '40000');
-CALL RegistrarEmpleado('Pedro', 'Gonzalez', '4567890123', '1', '4567890123', 'Calle Principal', 'pedro@example.com', '1', '1985-08-20', '2024-04-26', '2', '45000');
+CALL RegistrarEmpleado('Juan', 'Perez', '1234567890', '1', '1234567890', 'Calle 123', 'juan@example.com', '1', '1990-01-01', '2024-04-26', '3', '50000','1234567890');
+CALL RegistrarEmpleado('Maria', 'Lopez', '0987654321', '1', '0987654321', 'Avenida 456', 'maria@example.com', '2', '1995-05-15', '2024-04-26', '1', '40000','0987654321');
+CALL RegistrarEmpleado('Pedro', 'Gonzalez', '4567890123', '1', '4567890123', 'Calle Principal', 'pedro@example.com', '1', '1985-08-20', '2024-04-26', '2', '45000','4567890123');
 CALL RegistrarEmpleado('Ana', 'Martinez', '9876543210', '1', '9876543210', 'Avenida Central', 'ana@example.com', '2', '1992-11-30', '2024-04-26', '2', '55000');
 CALL RegistrarEmpleado('Carlos', 'Rodriguez', '1357924680', '1', '1357924680', 'Calle Secundaria', 'carlos@example.com', '1', '1988-04-10', '2024-04-26', '1', '60000');
 CALL RegistrarEmpleado('Luisa', 'Sanchez', '2468013579', '1', '2468013579', 'Calle 789', 'luisa@example.com', '2', '1998-07-25', '2024-04-26', '3', '48000');
@@ -397,4 +425,3 @@ CALL RegistrarSalidaEmpleado('4567890123','2024-04-28','12:35', @p_mensaje);
 CALL RegistrarSalidaEmpleado('9876543210','2024-04-27','17:15', @p_mensaje);
 CALL RegistrarSalidaEmpleado('1357924680','2024-04-27','14:20', @p_mensaje);
 CALL RegistrarSalidaEmpleado('2468013579','2024-04-26','16:30', @p_mensaje);
-
