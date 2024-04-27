@@ -279,6 +279,12 @@ BEGIN
 END //
 DELIMITER ;
 
+-- llamar al proceso para todos los empleados
+call ReporteEntradaSalida('2024-04-26','2024-04-27',null);
+-- llamar al proceso para un empleado
+call ReporteEntradaSalida('2024-04-26','2024-04-27','documento');
+
+
 /*2. Reporte de empleados que ingresaron tarde*/
 
 DELIMITER //
@@ -332,6 +338,63 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE IniciarSesion(
+    IN p_documento VARCHAR(20),
+    IN p_clave VARCHAR(20),
+    OUT p_mensaje VARCHAR(100)
+)
+BEGIN
+    DECLARE v_empleado_id INT;
+
+    -- Verificar si el documento del empleado existe en la tabla de empleados
+    SELECT id INTO v_empleado_id
+    FROM Empleado
+    WHERE documento = p_documento;
+
+    -- Si el documento del empleado no existe, mostrar un mensaje de error y salir del procedimiento
+    IF v_empleado_id IS NULL THEN
+        SET p_mensaje = 'Usuario no encontrado'; -- Asignar el mensaje de error
+    ELSE
+        -- Verificar si la clave proporcionada coincide con el documento del empleado
+        IF EXISTS (
+            SELECT 1
+            FROM Empleado
+            WHERE id = v_empleado_id AND documento = p_clave
+        ) THEN
+            SET p_mensaje = 'Inicio de sesión exitoso'; -- Asignar el mensaje de éxito
+        ELSE
+            SET p_mensaje = 'Clave incorrecta'; -- Asignar el mensaje de clave incorrecta
+        END IF;
+    END IF;
+END
+
+DELIMITER ;
 
 
+-- ejemplos insercion empleados
+
+CALL RegistrarEmpleado('Juan', 'Perez', '1234567890', '1', '1234567890', 'Calle 123', 'juan@example.com', '1', '1990-01-01', '2024-04-26', '3', '50000');
+CALL RegistrarEmpleado('Maria', 'Lopez', '0987654321', '1', '0987654321', 'Avenida 456', 'maria@example.com', '2', '1995-05-15', '2024-04-26', '1', '40000');
+CALL RegistrarEmpleado('Pedro', 'Gonzalez', '4567890123', '1', '4567890123', 'Calle Principal', 'pedro@example.com', '1', '1985-08-20', '2024-04-26', '2', '45000');
+CALL RegistrarEmpleado('Ana', 'Martinez', '9876543210', '1', '9876543210', 'Avenida Central', 'ana@example.com', '2', '1992-11-30', '2024-04-26', '2', '55000');
+CALL RegistrarEmpleado('Carlos', 'Rodriguez', '1357924680', '1', '1357924680', 'Calle Secundaria', 'carlos@example.com', '1', '1988-04-10', '2024-04-26', '1', '60000');
+CALL RegistrarEmpleado('Luisa', 'Sanchez', '2468013579', '1', '2468013579', 'Calle 789', 'luisa@example.com', '2', '1998-07-25', '2024-04-26', '3', '48000');
+
+-- ejemplos de entrada y salida
+CALL RegistrarEntradaEmpleado('1234567890','2024-04-26','8:10', @p_mensaje);
+CALL RegistrarEntradaEmpleado('0987654321','2024-04-26','8:00', @p_mensaje);
+CALL RegistrarEntradaEmpleado('4567890123','2024-04-28','8:35', @p_mensaje);
+CALL RegistrarEntradaEmpleado('9876543210','2024-04-27','8:15', @p_mensaje);
+CALL RegistrarEntradaEmpleado('1357924680','2024-04-27','8:00', @p_mensaje);
+CALL RegistrarEntradaEmpleado('2468013579','2024-04-26','8:00', @p_mensaje);
+
+-- Ejempplo de datos salida
+CALL RegistrarSalidaEmpleado('1234567890','2024-04-26','12:10', @p_mensaje);
+CALL RegistrarSalidaEmpleado('0987654321','2024-04-26','13:00', @p_mensaje);
+CALL RegistrarSalidaEmpleado('4567890123','2024-04-28','12:35', @p_mensaje);
+CALL RegistrarSalidaEmpleado('9876543210','2024-04-27','17:15', @p_mensaje);
+CALL RegistrarSalidaEmpleado('1357924680','2024-04-27','14:20', @p_mensaje);
+CALL RegistrarSalidaEmpleado('2468013579','2024-04-26','16:30', @p_mensaje);
 

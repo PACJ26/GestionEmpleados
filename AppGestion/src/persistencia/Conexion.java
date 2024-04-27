@@ -15,7 +15,7 @@ public class Conexion {
     String basedatos = "empleados";
     String URL = "jdbc:mysql://localhost:3306/";
     String USU = "root";
-    String CLAVE = "123456";
+    String CLAVE = "cbn2016";
     String driver = "com.mysql.cj.jdbc.Driver";
     Connection con;
 
