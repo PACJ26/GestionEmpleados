@@ -10,12 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -32,6 +30,7 @@ public class formAdministrador extends javax.swing.JFrame {
     LocalDate fechaHace18Anios = fechaActual.minusYears(18);
     Date fechaHace18AniosDate = Date.from(fechaHace18Anios.atStartOfDay(ZoneId.systemDefault()).toInstant());
     String Clave;
+
     public formAdministrador() {
         listaEmpleados = new ArrayList();
         conexion = new Conexion();
@@ -87,14 +86,11 @@ public class formAdministrador extends javax.swing.JFrame {
         tablaRegistro = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableReporte = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        txtDBuscar = new javax.swing.JTextField();
-        dateInicio = new com.toedter.calendar.JDateChooser();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        dateFin = new com.toedter.calendar.JDateChooser();
+        Asistencia = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
+        txtDempleado = new javax.swing.JTextField();
+        dateInicio = new com.toedter.calendar.JDateChooser();
+        dateFin = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -364,7 +360,7 @@ public class formAdministrador extends javax.swing.JFrame {
 
         JTab.addTab("Registro de Empleado", jPanel2);
 
-        tableReporte.setModel(new javax.swing.table.DefaultTableModel(
+        Asistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -375,16 +371,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tableReporte);
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Numero de Documento: ");
-
-        txtDBuscar.setText("jTextField1");
-
-        jLabel14.setText("Fecha Inicio");
-
-        jLabel15.setText("Fecha fin");
+        jScrollPane2.setViewportView(Asistencia);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -398,52 +385,33 @@ public class formAdministrador extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(109, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(txtDBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(74, 74, 74)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+                .addGap(129, 129, 129)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnBuscar)
+                .addGap(18, 18, 18)
+                .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132)
+                .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBuscar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(txtDBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar)
+                        .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         JTab.addTab("Registro Entrada y Salida", jPanel3);
@@ -484,54 +452,62 @@ public class formAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String documento = txtDocumento.getText();
+        // TODO add your handling code here:
+
         Date fechaInicio = dateInicio.getDate();
         Date fechaFin = dateFin.getDate();
 
-        // Verificar que se hayan seleccionado fechas válidas
-        if (fechaInicio == null || fechaFin == null || fechaFin.before(fechaInicio)) {
-            JOptionPane.showMessageDialog(this, "Seleccione un rango de fechas válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (fechaInicio == null || fechaFin == null) {
+           Mensajes.mostrarAdvertencia("Por favor, seleccione una fecha de inicio y una fecha de fin válidas.");
             return;
         }
 
-        // Llamar al método para mostrar los registros de entrada y salida por fecha
-        mostrarRegistrosEntradaSalidaPorFecha(documento, fechaInicio, fechaFin);
-    }//GEN-LAST:event_btnBuscarActionPerformed
+        if (fechaInicio.after(fechaFin)) {
+            Mensajes.mostrarAdvertencia( "La fecha de inicio no puede ser posterior a la fecha de fin.");
+            return;
+        }
 
-    private void mostrarRegistrosEntradaSalidaPorFecha(String documento, Date fechaInicio, Date fechaFin) {
+        java.sql.Date sqlFechaInicio = new java.sql.Date(fechaInicio.getTime());
+        java.sql.Date sqlFechaFin = new java.sql.Date(fechaFin.getTime());
+
+        String documentoEmpleado = txtDempleado.getText().trim();
+
         try (Connection con = conexion.conectar()) {
             DefaultTableModel model = new DefaultTableModel();
-            CallableStatement statement = con.prepareCall("{CALL MostrarRegistrosEntradaSalidaPorFecha(?, ?, ?)}");
+            CallableStatement stmt = con.prepareCall("{CALL ReporteEntradaSalida(?, ?, ?)}");
+            stmt.setDate(1, sqlFechaInicio);
+            stmt.setDate(2, sqlFechaFin);
 
-            // Configurar los parámetros del procedimiento almacenado
-            statement.setDate(1, new java.sql.Date(fechaInicio.getTime()));
-            statement.setDate(2, new java.sql.Date(fechaFin.getTime()));
-            statement.setString(3, documento);
+            // Pasar null si el campo del documento del empleado está vacío
+            if (documentoEmpleado.isEmpty()) {
+                stmt.setNull(3, Types.VARCHAR);
+            } else {
+                stmt.setString(3, documentoEmpleado);
+            }
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = stmt.executeQuery();
             ResultSetMetaData metaData = resultSet.getMetaData();
 
-            // Agregar nombres de columnas a la tabla
-            for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
-                model.addColumn(metaData.getColumnLabel(columnIndex));
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                model.addColumn(metaData.getColumnLabel(i));
             }
 
-            // Agregar filas a la tabla
             while (resultSet.next()) {
-                Object[] rowData = new Object[metaData.getColumnCount()];
+                Object[] filas = new Object[metaData.getColumnCount()];
                 for (int i = 0; i < metaData.getColumnCount(); i++) {
-                    rowData[i] = resultSet.getObject(i + 1);
+                    filas[i] = resultSet.getObject(i + 1);
                 }
-                model.addRow(rowData);
+                model.addRow(filas);
             }
-
-            // Asignar el modelo de la tabla
-            tableReporte.setModel(model);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            Asistencia.setModel(model);
+           
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al obtener los datos de entrada y salida");
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
         }
-    }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
@@ -605,7 +581,7 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public void guardarRegistro() {
-        
+
         Clave = String.valueOf(txtPassword.getPassword());
         if (validarDocumentoUnico()) {
             Mensajes.mostrarAdvertencia("El documento ya existe");
@@ -633,7 +609,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 stmt.setInt(11, comboCargo.getSelectedIndex());
                 String salarioFormateado = formatearSalario(txtSalario.getText());
                 stmt.setString(12, salarioFormateado);
-                stmt.setString(13,Clave);
+                stmt.setString(13, Clave);
                 stmt.execute();
                 Mensajes.mostrarExito("Registro agregado");
                 mostrarInfo();
@@ -761,14 +737,15 @@ public class formAdministrador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formPrincipal principal = new formPrincipal();
-                principal.setVisible(true);
-                
+                formAdministrador admi = new formAdministrador();
+                admi.setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Asistencia;
     private javax.swing.JTabbedPane JTab;
     private javax.swing.JPanel PanelRegistro;
     private javax.swing.JButton btnBuscar;
@@ -780,13 +757,10 @@ public class formAdministrador extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateFechanacimiento;
     private com.toedter.calendar.JDateChooser dateFin;
     private com.toedter.calendar.JDateChooser dateInicio;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -802,10 +776,9 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaRegistro;
-    private javax.swing.JTable tableReporte;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDBuscar;
+    private javax.swing.JTextField txtDempleado;
     private javax.swing.JTextField txtDirreccion;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombres;
