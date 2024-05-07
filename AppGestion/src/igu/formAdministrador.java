@@ -2,6 +2,7 @@ package igu;
 
 import Utilidad.Mensajes;
 import Utilidad.ajustesTablas;
+import java.awt.Color;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -32,11 +34,12 @@ public class formAdministrador extends javax.swing.JFrame {
     String Clave;
 
     public formAdministrador() {
+
+        initComponents();
         listaEmpleados = new ArrayList();
         conexion = new Conexion();
         this.setTitle("Registro de Empleado");
         this.setLocationRelativeTo(null);
-        initComponents();
         dateFechanacimiento.setMaxSelectableDate(fechaHace18AniosDate);
         llenarComboDocumento();
         llenarComboGenero();
@@ -45,6 +48,9 @@ public class formAdministrador extends javax.swing.JFrame {
         validarDocumentoUnico();
         mostrarInfo();
         limpiarCampos();
+
+        ImageIcon icono = new ImageIcon("C:/Users/Juan/Documents/ProyectoSERVERUS/ICONOS/registrar.png");
+        JTabbedPane.setIconAt(0, icono);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +58,7 @@ public class formAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        JTab = new javax.swing.JTabbedPane();
+        JTabbedPane = new javax.swing.JTabbedPane();
         PanelRegistro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
@@ -95,6 +101,10 @@ public class formAdministrador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        JTabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        JTabbedPane.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JTabbedPane.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
         PanelRegistro.setBackground(new java.awt.Color(255, 255, 255));
         PanelRegistro.setForeground(new java.awt.Color(255, 255, 255));
@@ -192,7 +202,6 @@ public class formAdministrador extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Contraseña");
 
-        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
         txtPassword.setText("jPasswordField1");
 
         javax.swing.GroupLayout PanelRegistroLayout = new javax.swing.GroupLayout(PanelRegistro);
@@ -267,7 +276,7 @@ public class formAdministrador extends javax.swing.JFrame {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(180, 180, 180))))
             .addGroup(PanelRegistroLayout.createSequentialGroup()
                 .addGap(288, 288, 288)
@@ -311,7 +320,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -326,7 +335,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addGap(38, 38, 38))
         );
 
-        JTab.addTab("Registrar", PanelRegistro);
+        JTabbedPane.addTab("Registrar", PanelRegistro);
 
         tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -358,7 +367,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
-        JTab.addTab("Registro de Empleado", jPanel2);
+        JTabbedPane.addTab("Registro de Empleado", jPanel2);
 
         Asistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -384,19 +393,18 @@ public class formAdministrador extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(btnBuscar)
-                .addGap(18, 18, 18)
-                .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132)
-                .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132)
+                        .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
         );
         jPanel3Layout.setVerticalGroup(
@@ -414,17 +422,17 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        JTab.addTab("Registro Entrada y Salida", jPanel3);
+        JTabbedPane.addTab("Registro Entrada y Salida", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTab)
+            .addComponent(JTabbedPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JTab)
+            .addComponent(JTabbedPane)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -458,12 +466,12 @@ public class formAdministrador extends javax.swing.JFrame {
         Date fechaFin = dateFin.getDate();
 
         if (fechaInicio == null || fechaFin == null) {
-           Mensajes.mostrarAdvertencia("Por favor, seleccione una fecha de inicio y una fecha de fin válidas.");
+            Mensajes.mostrarAdvertencia("Por favor, seleccione una fecha de inicio y una fecha de fin válidas.");
             return;
         }
 
         if (fechaInicio.after(fechaFin)) {
-            Mensajes.mostrarAdvertencia( "La fecha de inicio no puede ser posterior a la fecha de fin.");
+            Mensajes.mostrarAdvertencia("La fecha de inicio no puede ser posterior a la fecha de fin.");
             return;
         }
 
@@ -500,7 +508,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 model.addRow(filas);
             }
             Asistencia.setModel(model);
-           
+            ajustesTablas.ajustarTabla(Asistencia);
         } catch (SQLException e) {
             Mensajes.mostrarError("Error al obtener los datos de entrada y salida");
             e.printStackTrace();
@@ -643,6 +651,7 @@ public class formAdministrador extends javax.swing.JFrame {
         dateFechanacimiento.setDate(null);
         dateContratacion.setDate(null);
         txtSalario.setText("");
+        txtPassword.setText("");
 
         comboDocumento.removeAllItems();
         llenarComboDocumento();
@@ -746,7 +755,7 @@ public class formAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Asistencia;
-    private javax.swing.JTabbedPane JTab;
+    private javax.swing.JTabbedPane JTabbedPane;
     private javax.swing.JPanel PanelRegistro;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRegistrar;

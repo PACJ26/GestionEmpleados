@@ -124,7 +124,18 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE MostrarEmpleados()
 BEGIN
-    SELECT e.id, e.nombres, e.apellidos, e.documento, td.tipoDocumento, e.numeroTelefonico, e.direccion, e.correoElectronico, g.tipoGenero, e.fechaNacimiento, e.fechaContratacion, c.tipoCargo, e.salario, e.clave
+    SELECT e.nombres 'Nombres',
+    e.apellidos 'Apellidos', 
+    e.documento 'Documento', 
+    td.tipoDocumento 'Tipo de Documento', 
+    e.numeroTelefonico 'Numero Telefonico', 
+    e.direccion 'Dirección', 
+    e.correoElectronico 'Correo Electronico', 
+    g.tipoGenero 'Tipo de Genero', 
+    e.fechaNacimiento 'Fecha Nacimiento', 
+    e.fechaContratacion 'Fecha Contratación', 
+    c.tipoCargo 'Tipo de Cargo', 
+    e.salario 'Salario'
     FROM Empleado e
     INNER JOIN TipoDocumentos td ON td.id=e.tipoDocumento
     INNER JOIN TipoGenero g ON g.id=e.genero
@@ -144,16 +155,6 @@ CREATE TABLE RegistroEntradaSalida (
     FOREIGN KEY (id_empleado) REFERENCES Empleado(id)
 );
 
-DELIMITER //
-
-CREATE PROCEDURE MostrarRegistroEntradaSalida()
-BEGIN
-    SELECT * FROM RegistroEntradaSalida;
-END//
-
-DELIMITER ;
-
-call  MostrarRegistroEntradaSalida();
 
 -- Proceso para registrar entrada
 DELIMITER //
@@ -309,7 +310,12 @@ CREATE PROCEDURE ReporteEntradaSalida(
     IN documentoEmpleado VARCHAR(20)
 )
 BEGIN
-    SELECT RegistroES.*
+    SELECT E.nombres 'Nombre', 
+    E.apellidos 'Apellido', 
+    E.documento 'Documento', 
+    RegistroES.fecha 'Fecha', 
+    RegistroES.horaEntrada 'Hora de Entrada', 
+    RegistroES.horaSalida 'Hora de Salida'
     FROM RegistroEntradaSalida AS RegistroES
     INNER JOIN Empleado AS E ON RegistroES.id_empleado = E.id
     WHERE (documentoEmpleado IS NULL OR E.documento = documentoEmpleado)
@@ -341,6 +347,8 @@ BEGIN
 END //
 DELIMITER ;
 
+CALL ReporteIngresosTarde('2024-04-26', '2024-05-06');
+
 /*3. Reporte de horas extras*/
 
 DELIMITER //
@@ -349,12 +357,17 @@ CREATE PROCEDURE ReporteHorasExtras(
     IN fechaFin DATE
 )
 BEGIN
-    SELECT *
+    SELECT id_empleado, 
+           fecha, 
+           horaSalida, 
+           TIMEDIFF(horaSalida, '18:00:00') AS horasExtras
     FROM RegistroEntradaSalida
     WHERE fecha BETWEEN fechaInicio AND fechaFin
     AND horaSalida > '18:00:00';
 END //
 DELIMITER ;
+
+CALL ReporteHorasExtras('2024-04-26', '2024-05-06');
 
 /*4. Reporte de permisos*/
 
@@ -402,7 +415,7 @@ CALL RegistrarEntradaEmpleado('2468013579','2024-04-26','8:00', @p_mensaje);
 
 -- Ejempplo de datos salida empeleado
 CALL RegistrarSalidaEmpleado('1234567890','2024-04-26','12:10', @p_mensaje);
-CALL RegistrarSalidaEmpleado('0987654321','2024-04-26','13:00', @p_mensaje);
+CALL RegistrarSalidaEmpleado('0987654321','2024-04-26','20:30', @p_mensaje);
 CALL RegistrarSalidaEmpleado('4567890123','2024-04-28','12:35', @p_mensaje);
 CALL RegistrarSalidaEmpleado('9876543210','2024-04-27','17:15', @p_mensaje);
 CALL RegistrarSalidaEmpleado('1357924680','2024-04-27','14:20', @p_mensaje);

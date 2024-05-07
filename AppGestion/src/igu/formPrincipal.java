@@ -221,7 +221,7 @@ public class formPrincipal extends javax.swing.JFrame {
             stmt.setString(1, documento);
             stmt.setDate(2, fecha);
             stmt.setTime(3, horaEntrada);
-            stmt.registerOutParameter(4, Types.VARCHAR); // Parámetro de salida para el mensaje
+            stmt.registerOutParameter(4, Types.VARCHAR);
 
             stmt.execute();
             mensaje = stmt.getString(4);
