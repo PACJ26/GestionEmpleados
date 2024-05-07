@@ -367,7 +367,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
-        JTabbedPane.addTab("Registro de Empleado", jPanel2);
+        JTabbedPane.addTab("Empleados", jPanel2);
 
         Asistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
