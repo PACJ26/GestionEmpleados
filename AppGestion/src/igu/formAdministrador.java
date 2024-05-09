@@ -1,7 +1,7 @@
 package igu;
 
 import Utilidad.Mensajes;
-import Utilidad.TabIconos;
+import Utilidad.Iconos;
 import Utilidad.ajustesTablas;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import logica.Empleado;
 import persistencia.Conexion;
@@ -48,9 +49,11 @@ public class formAdministrador extends javax.swing.JFrame {
         mostrarInfo();
         limpiarCampos();
 
-        TabIconos.setIcon(Jtab, 0, "registrar.png");
-        TabIconos.setIcon(Jtab, 1, "empleado.png");
-        TabIconos.setIcon(Jtab, 2, "asistencia.png");
+        Iconos.setIcon(Jtab, 0, "registrar.png");
+        Iconos.setIcon(Jtab, 1, "empleado.png");
+        Iconos.setIcon(Jtab, 2, "asistencia.png");
+        
+      Iconos.setJFrameIcon(this, "admi.png");
 
     }
 
@@ -61,6 +64,19 @@ public class formAdministrador extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Jtab = new javax.swing.JTabbedPane();
+        PanelEmpleados = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaRegistro = new javax.swing.JTable();
+        PanelAsisencia = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Asistencia = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        txtDempleado = new javax.swing.JTextField();
+        dateInicio = new com.toedter.calendar.JDateChooser();
+        dateFin = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         PanelRegistro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
@@ -86,22 +102,12 @@ public class formAdministrador extends javax.swing.JFrame {
         comboCargo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         txtSalario = new javax.swing.JTextField();
-        btnRegistrar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        PanelEmpleados = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaRegistro = new javax.swing.JTable();
-        PanelAsisencia = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Asistencia = new javax.swing.JTable();
-        btnBuscar = new javax.swing.JButton();
-        txtDempleado = new javax.swing.JTextField();
-        dateInicio = new com.toedter.calendar.JDateChooser();
-        dateFin = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,329 +119,6 @@ public class formAdministrador extends javax.swing.JFrame {
         Jtab.setFocusCycleRoot(true);
         Jtab.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Jtab.setName(""); // NOI18N
-
-        PanelRegistro.setBackground(new java.awt.Color(255, 255, 255));
-        PanelRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        PanelRegistro.setLayout(new java.awt.GridBagLayout());
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Nombres");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 29, 0, 0);
-        PanelRegistro.add(jLabel2, gridBagConstraints);
-
-        txtNombres.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtNombres.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 151;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(38, 0, 0, 0);
-        PanelRegistro.add(txtNombres, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Apellidos");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 59, 0, 0);
-        PanelRegistro.add(jLabel3, gridBagConstraints);
-
-        txtApellidos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtApellidos.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 178;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(38, 6, 0, 0);
-        PanelRegistro.add(txtApellidos, gridBagConstraints);
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Documento");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(46, 43, 0, 0);
-        PanelRegistro.add(jLabel4, gridBagConstraints);
-
-        txtDocumento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtDocumento.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 24;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 151;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(42, 6, 0, 24);
-        PanelRegistro.add(txtDocumento, gridBagConstraints);
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Tipo de Documento");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(28, 33, 0, 0);
-        PanelRegistro.add(jLabel5, gridBagConstraints);
-
-        comboDocumento.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        comboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(23, 6, 0, 0);
-        PanelRegistro.add(comboDocumento, gridBagConstraints);
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Numero Telefonico");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(23, 74, 0, 0);
-        PanelRegistro.add(jLabel6, gridBagConstraints);
-
-        txtTelefono.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtTelefono.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 108;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 2, 0, 0);
-        PanelRegistro.add(txtTelefono, gridBagConstraints);
-
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Dirección");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(36, 33, 0, 0);
-        PanelRegistro.add(jLabel7, gridBagConstraints);
-
-        txtDirreccion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtDirreccion.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 5;
-        gridBagConstraints.ipadx = 151;
-        gridBagConstraints.ipady = 20;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 5, 0, 0);
-        PanelRegistro.add(txtDirreccion, gridBagConstraints);
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Correo Electronico");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(23, 9, 0, 0);
-        PanelRegistro.add(jLabel8, gridBagConstraints);
-
-        txtCorreo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtCorreo.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 24;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 151;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 6, 0, 24);
-        PanelRegistro.add(txtCorreo, gridBagConstraints);
-
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Genero");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(36, 33, 0, 0);
-        PanelRegistro.add(jLabel9, gridBagConstraints);
-
-        comboGenero.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        comboGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.ipadx = 53;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(31, 6, 0, 0);
-        PanelRegistro.add(comboGenero, gridBagConstraints);
-
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Fecha de Nacimiento");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 58, 0, 0);
-        PanelRegistro.add(jLabel10, gridBagConstraints);
-
-        dateFechanacimiento.setBackground(new java.awt.Color(255, 255, 255));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 12;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 112;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 58, 0, 0);
-        PanelRegistro.add(dateFechanacimiento, gridBagConstraints);
-
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Fecha de Contratación");
-        jLabel11.setToolTipText("");
-        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 28;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 79, 0, 0);
-        PanelRegistro.add(jLabel11, gridBagConstraints);
-
-        dateContratacion.setBackground(new java.awt.Color(255, 255, 255));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 112;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 79, 0, 0);
-        PanelRegistro.add(dateContratacion, gridBagConstraints);
-
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Cargo");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 22;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(27, 102, 0, 0);
-        PanelRegistro.add(jLabel12, gridBagConstraints);
-
-        comboCargo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 25;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 6, 0, 0);
-        PanelRegistro.add(comboCargo, gridBagConstraints);
-
-        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Salario");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 47, 0, 0);
-        PanelRegistro.add(jLabel13, gridBagConstraints);
-
-        txtSalario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtSalario.setText("jTextField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 151;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 5, 0, 0);
-        PanelRegistro.add(txtSalario, gridBagConstraints);
-
-        btnRegistrar.setText("Registrar");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 51;
-        gridBagConstraints.ipady = 22;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(140, 4, 67, 0);
-        PanelRegistro.add(btnRegistrar, gridBagConstraints);
-
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Contraseña");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 22, 0, 0);
-        PanelRegistro.add(jLabel16, gridBagConstraints);
-
-        txtPassword.setText("jPasswordField1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 150;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        PanelRegistro.add(txtPassword, gridBagConstraints);
-
-        Jtab.addTab("Registrar", PanelRegistro);
-
-        PanelEmpleados.setLayout(new java.awt.GridBagLayout());
 
         tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -450,21 +133,23 @@ public class formAdministrador extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaRegistro);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 867;
-        gridBagConstraints.ipady = 397;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 108, 6);
-        PanelEmpleados.add(jScrollPane1, gridBagConstraints);
+        javax.swing.GroupLayout PanelEmpleadosLayout = new javax.swing.GroupLayout(PanelEmpleados);
+        PanelEmpleados.setLayout(PanelEmpleadosLayout);
+        PanelEmpleadosLayout.setHorizontalGroup(
+            PanelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEmpleadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        PanelEmpleadosLayout.setVerticalGroup(
+            PanelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEmpleadosLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         Jtab.addTab("Empleados", PanelEmpleados);
-
-        PanelAsisencia.setLayout(new java.awt.GridBagLayout());
 
         Asistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -479,19 +164,6 @@ public class formAdministrador extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(Asistencia);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 809;
-        gridBagConstraints.ipady = 397;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, 25, 22, 45);
-        PanelAsisencia.add(jScrollPane2, gridBagConstraints);
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -499,77 +171,378 @@ public class formAdministrador extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(6, 57, 0, 0);
-        PanelAsisencia.add(btnBuscar, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 121;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 114, 0, 0);
-        PanelAsisencia.add(txtDempleado, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(6, 83, 0, 0);
-        PanelAsisencia.add(dateInicio, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 110;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(6, 35, 0, 0);
-        PanelAsisencia.add(dateFin, gridBagConstraints);
 
         jLabel1.setText("Documento");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(20, 113, 0, 0);
-        PanelAsisencia.add(jLabel1, gridBagConstraints);
 
         jLabel14.setText("Fecha de finalización ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(20, 2, 0, 0);
-        PanelAsisencia.add(jLabel14, gridBagConstraints);
 
         jLabel15.setText("Fecha de Inicio");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(20, 44, 0, 0);
-        PanelAsisencia.add(jLabel15, gridBagConstraints);
+
+        javax.swing.GroupLayout PanelAsisenciaLayout = new javax.swing.GroupLayout(PanelAsisencia);
+        PanelAsisencia.setLayout(PanelAsisenciaLayout);
+        PanelAsisenciaLayout.setHorizontalGroup(
+            PanelAsisenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAsisenciaLayout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel1)
+                .addGap(191, 191, 191)
+                .addComponent(jLabel15)
+                .addGap(150, 150, 150)
+                .addComponent(jLabel14))
+            .addGroup(PanelAsisenciaLayout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137)
+                .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
+                .addComponent(btnBuscar))
+            .addGroup(PanelAsisenciaLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 997, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        PanelAsisenciaLayout.setVerticalGroup(
+            PanelAsisenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAsisenciaLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(PanelAsisenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14))
+                .addGap(6, 6, 6)
+                .addGroup(PanelAsisenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAsisenciaLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         Jtab.addTab("Registro Entrada y Salida", PanelAsisencia);
+
+        PanelRegistro.setBackground(new java.awt.Color(255, 255, 229));
+        PanelRegistro.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Nombres");
+
+        txtNombres.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtNombres.setText("jTextField1");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Apellidos");
+
+        txtApellidos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtApellidos.setText("jTextField1");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Documento");
+
+        txtDocumento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtDocumento.setText("jTextField1");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Tipo de Documento");
+
+        comboDocumento.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        comboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Numero Telefonico");
+
+        txtTelefono.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtTelefono.setText("jTextField1");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Dirección");
+
+        txtDirreccion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtDirreccion.setText("jTextField1");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Correo Electronico");
+
+        txtCorreo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtCorreo.setText("jTextField1");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Genero");
+
+        comboGenero.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        comboGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Fecha de Nacimiento");
+
+        dateFechanacimiento.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Fecha de Contratación");
+        jLabel11.setToolTipText("");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        dateContratacion.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Cargo");
+
+        comboCargo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Salario");
+
+        txtSalario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtSalario.setText("jTextField1");
+
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Contraseña");
+
+        txtPassword.setText("jPasswordField1");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 229));
+
+        jLabel17.setFont(new java.awt.Font("Bodoni MT Black", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("FORMULARIO DE REGISTRO");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(338, 338, 338))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(33, 33, 33))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 229));
+
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
+        btnRegistrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/guardar32.png"))); // NOI18N
+        btnRegistrar.setText("REGISTRAR");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegistrar)
+                .addGap(460, 460, 460))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout PanelRegistroLayout = new javax.swing.GroupLayout(PanelRegistro);
+        PanelRegistro.setLayout(PanelRegistroLayout);
+        PanelRegistroLayout.setHorizontalGroup(
+            PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel13))
+                            .addComponent(jLabel16))
+                        .addGap(5, 5, 5)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(66, 66, 66)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(79, 79, 79)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtDirreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(144, 144, 144)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(65, 65, 65)
+                                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                    .addGap(65, 65, 65)
+                                    .addComponent(jLabel4)
+                                    .addGap(13, 13, 13)
+                                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addComponent(jLabel8)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(jLabel12)
+                                .addGap(7, 7, 7)
+                                .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 226, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        PanelRegistroLayout.setVerticalGroup(
+            PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel2))
+                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel3))
+                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel4))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel5))
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel6))
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel8))
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(comboDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel7))
+                            .addComponent(txtDirreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel9))))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                    .addGap(5, 5, 5)
+                                    .addComponent(jLabel12))
+                                .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel13)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel16))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(6, 6, 6)
+                        .addComponent(dateFechanacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(6, 6, 6)
+                        .addComponent(dateContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(121, 121, 121)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Jtab.addTab("Registrar", PanelRegistro);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Jtab, javax.swing.GroupLayout.DEFAULT_SIZE, 1091, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(Jtab, javax.swing.GroupLayout.PREFERRED_SIZE, 1300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Jtab, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+            .addComponent(Jtab)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -883,8 +856,8 @@ public class formAdministrador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formAdministrador admi = new formAdministrador();
-                admi.setVisible(true);
+                formPrincipal principal = new formPrincipal();
+                principal.setVisible(true);
 
             }
         });
@@ -913,6 +886,7 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -922,6 +896,8 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaRegistro;

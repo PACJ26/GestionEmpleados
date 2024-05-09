@@ -1,5 +1,6 @@
 package igu;
 
+import Utilidad.Iconos;
 import Utilidad.Mensajes;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,12 +17,13 @@ public class formPrincipal extends javax.swing.JFrame {
     ArrayList<RegistroEntradaSalida> listaRegistros;
 
     public formPrincipal() {
+        initComponents();
         conexion = new Conexion();
         listaRegistros = new ArrayList();
         this.setTitle("Gestion Empleados");
         this.setLocationRelativeTo(null);
-        initComponents();
-       
+
+        Iconos.setJFrameIcon(this, "iniciosesion.png");
     }
 
     @SuppressWarnings("unchecked")
@@ -184,7 +186,7 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntradaActionPerformed
 
     private void btnSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalidaActionPerformed
-         String documento = txtDocumento.getText();
+        String documento = txtDocumento.getText();
 
         // Validar el documento antes de registrar la entrada
         if (documento != null && !documento.isEmpty()) {
@@ -209,7 +211,7 @@ public class formPrincipal extends javax.swing.JFrame {
     private void BtIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIniciarSesionActionPerformed
         formLogin login = new formLogin();
         login.setVisible(true);
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_BtIniciarSesionActionPerformed
 
     public String insertarRegistroEntrada(String documento, java.sql.Date fecha, java.sql.Time horaEntrada) {
@@ -233,7 +235,7 @@ public class formPrincipal extends javax.swing.JFrame {
         }
         return mensaje;
     }
-    
+
     public String insertarRegistroSalida(String documento, java.sql.Date fecha, java.sql.Time horaSalida) {
         String mensaje = "";
         try (Connection con = conexion.conectar()) {
