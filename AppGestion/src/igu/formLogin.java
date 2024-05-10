@@ -3,6 +3,7 @@ package igu;
 import Utilidad.Mensajes;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import persistencia.Conexion;
@@ -112,59 +113,64 @@ public class formLogin extends javax.swing.JFrame {
         String documento = txtDocumento.getText();
         String clave = new String(txtClave.getPassword());
 
+        // Verificar si los campos están vacíos
         if (documento.isEmpty() || clave.isEmpty()) {
             Mensajes.mostrarAdvertencia("Hay Campos vacios");
             return;
         }
 
         try (Connection con = conexion.conectar()) {
-
-            CallableStatement calls = con.prepareCall("{CALL IniciarSesion(?, ?, ?)}");
+            // Preparar la llamada al procedimiento almacenado
+            CallableStatement calls = con.prepareCall("{CALL IniciarSesion(?, ?)}");
             calls.setString(1, documento);
             calls.setString(2, clave);
-            calls.registerOutParameter(3, Types.VARCHAR);
-            calls.execute();
-            
-            String mensaje = calls.getString(3);
 
-            if (mensaje.equals("Usuario no encontrado")) {
+            // Ejecutar la consulta
+            ResultSet rs = calls.executeQuery();
 
-                Mensajes.mostrarError(mensaje);
+            if (rs.next()) {
+                // Obtener el mensaje devuelto por el procedimiento almacenado
+                String mensaje = rs.getString(1);
 
-            } else if (mensaje.equals("Clave incorrecta")) {
+                // Mostrar mensajes dependiendo del resultado
+                if (mensaje.equals("Usuario no encontrado")) {
+                    Mensajes.mostrarError(mensaje);
+                } else if (mensaje.equals("Clave incorrecta")) {
+                    Mensajes.mostrarError(mensaje);
+                } else if (mensaje.equals("Inicio de sesión exitoso")) {
+                    Mensajes.mostrarExito(mensaje);
 
-                Mensajes.mostrarError(mensaje);
+                    // Obtener el cargo del empleado
+                    int cargoEmpleado = obtenerCargoEmpleado(documento);
 
-            } else if (mensaje.equals("Inicio de sesión exitoso")) {
-
-                Mensajes.mostrarExito(mensaje);
-                int cargoEmpleado = obtenerCargoEmpleado(documento);
-
-                switch (cargoEmpleado) {
-                    case 2:
-                        formAdministrador administrador = new formAdministrador();
-                        administrador.setVisible(true);
-                        this.dispose();
-                        break;
-                    default:
-                        Mensajes.mostrarError("Cargo no encontrado: Error al iniciar sesion");
+                    // Abrir la ventana correspondiente según el cargo
+                    switch (cargoEmpleado) {
+                        case 2:
+                            formAdministrador administrador = new formAdministrador();
+                            administrador.setVisible(true);
+                            this.dispose();
+                            break;
+                        default:
+                            Mensajes.mostrarError("Cargo no encontrado: Error al iniciar sesión");
+                    }
                 }
             }
             conexion.desconectar();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private int obtenerCargoEmpleado(String documento) throws SQLException {
+    private int obtenerCargoEmpleado(String documento) {
         int cargo = -1;
         try (Connection con = conexion.conectar()) {
-            CallableStatement cs = con.prepareCall("{CALL ObtenerCargoEmpleado(?, ?)}");
+            CallableStatement cs = con.prepareCall("{CALL ObtenerCargoEmpleado(?)}");
             cs.setString(1, documento);
-            cs.registerOutParameter(2, Types.INTEGER);
-            cs.execute();
-            cargo = cs.getInt(2);
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                cargo = rs.getInt("cargo");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

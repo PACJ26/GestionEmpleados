@@ -20,8 +20,9 @@ public class Empleado {
     private Date fechaContratacion;
     private String tipoCargo;
     private String Salario;
+    private String Clave;
 
-    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String tipoGenero, Date fechaNacimiento, Date fechaContratacion, String tipoCargo, String Salario) {
+    public Empleado(String Nombres, String Apellidos, String Documento, String tipoDocumento, String numeroTelefonico, String Direccion, String correoElectronico, String tipoGenero, Date fechaNacimiento, Date fechaContratacion, String tipoCargo, String Salario, String Clave) {
         this.Nombres = Nombres;
         this.Apellidos = Apellidos;
         this.Documento = Documento;
@@ -34,6 +35,7 @@ public class Empleado {
         this.fechaContratacion = fechaContratacion;
         this.tipoCargo = tipoCargo;
         this.Salario = Salario;
+        this.Clave = Clave;
     }
 
     public String getNombres() {
@@ -131,5 +133,15 @@ public class Empleado {
     public void setSalario(String Salario) {
         this.Salario = Salario;
     }
+
+    public String getClave() {
+        return Clave;
+    }
+
+    public void setClave(String Clave) {
+        this.Clave = Clave;
+    }
+    
+    
 
 }

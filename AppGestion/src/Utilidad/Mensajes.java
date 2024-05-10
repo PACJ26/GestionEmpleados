@@ -24,4 +24,5 @@ public class Mensajes {
   public static void mostrarInformacion(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
+
 }
