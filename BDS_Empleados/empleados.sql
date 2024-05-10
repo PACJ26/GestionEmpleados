@@ -369,22 +369,41 @@ CALL ReporteIngresosTarde('2024-04-26', '2024-05-06', '9876543210');
 /*3. Reporte de horas extras*/
 
 DELIMITER //
+
 CREATE PROCEDURE ReporteHorasExtras(
     IN fechaInicio DATE,
-    IN fechaFin DATE
+    IN fechaFin DATE,
+    IN documentoEmpleado VARCHAR(20)
 )
 BEGIN
-    SELECT id_empleado, 
-           fecha, 
-           horaSalida, 
-           TIMEDIFF(horaSalida, '18:00:00') AS horasExtras
-    FROM RegistroEntradaSalida
-    WHERE fecha BETWEEN fechaInicio AND fechaFin
-    AND horaSalida > '18:00:00';
+    -- Reporte de horas extras para un empleado específico
+    IF documentoEmpleado IS NOT NULL THEN
+        SELECT e.documento 'Documento', 
+               res.fecha 'Fecha', 
+               res.horaSalida 'Hora de salida', 
+               TIMEDIFF(res.horaSalida, '18:00:00') AS 'Horas Extras'
+        FROM Empleado e
+        INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
+        WHERE res.fecha BETWEEN fechaInicio AND fechaFin
+        AND res.horaSalida > '18:00:00'
+        AND e.documento = documentoEmpleado;
+    ELSE
+        -- Reporte de horas extras para todos los empleados
+         SELECT e.documento 'Documento', 
+               res.fecha 'Fecha', 
+               res.horaSalida 'Hora de salida', 
+               TIMEDIFF(res.horaSalida, '18:00:00') AS 'Horas Extras'
+        FROM Empleado e
+        INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
+        WHERE res.fecha BETWEEN fechaInicio AND fechaFin
+        AND res.horaSalida > '18:00:00';
+    END IF;
 END //
+
 DELIMITER ;
 
-CALL ReporteHorasExtras('2024-04-26', '2024-05-06');
+
+CALL ReporteHorasExtras('2024-04-26', '2024-05-06',null);
 
 /*4. Reporte de permisos*/
 
@@ -431,7 +450,7 @@ CALL RegistrarEntradaEmpleado('1357924680','2024-04-27','8:00', @p_mensaje);
 CALL RegistrarEntradaEmpleado('2468013579','2024-04-26','8:00', @p_mensaje);
 
 -- Ejempplo de datos salida empeleado
-CALL RegistrarSalidaEmpleado('1234567890','2024-04-26','12:10', @p_mensaje);
+CALL RegistrarSalidaEmpleado('1234567890','2024-04-26','21:10', @p_mensaje);
 CALL RegistrarSalidaEmpleado('0987654321','2024-04-26','20:30', @p_mensaje);
 CALL RegistrarSalidaEmpleado('4567890123','2024-04-28','12:35', @p_mensaje);
 CALL RegistrarSalidaEmpleado('9876543210','2024-04-27','17:15', @p_mensaje);
