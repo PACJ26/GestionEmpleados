@@ -335,19 +335,36 @@ call ReporteEntradaSalida('2024-04-26','2024-04-27','documento');
 /*2. Reporte de empleados que ingresaron tarde*/
 
 DELIMITER //
+
 CREATE PROCEDURE ReporteIngresosTarde(
     IN fechaInicio DATE,
-    IN fechaFin DATE
+    IN fechaFin DATE,
+    IN documentoEmpleado VARCHAR(20)
 )
 BEGIN
-    SELECT *
-    FROM RegistroEntradaSalida
-    WHERE fecha BETWEEN fechaInicio AND fechaFin
-    AND horaEntrada > '08:00:00';
+    -- Reporte de un empleado específico que ingresó tarde
+    IF documentoEmpleado IS NOT NULL THEN
+        SELECT e.documento 'Documento', e.nombres 'Nombre', e.apellidos 'Apellido', res.fecha 'Fecha', res.horaEntrada 'Hora Entrada',
+               CASE WHEN res.horaEntrada > '08:00:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
+        FROM Empleado e
+        INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
+        WHERE res.fecha BETWEEN fechaInicio AND fechaFin
+        AND e.documento = documentoEmpleado;
+    ELSE
+        -- Reporte de todos los empleados que ingresaron tarde
+        SELECT e.documento 'Documento', e.nombres 'Nombre', e.apellidos 'Apellido', res.fecha 'Fecha', res.horaEntrada 'Hora Entrada',
+               CASE WHEN res.horaEntrada > '08:00:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
+        FROM Empleado e
+        INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
+        WHERE res.fecha BETWEEN fechaInicio AND fechaFin;
+    END IF;
 END //
+
 DELIMITER ;
 
-CALL ReporteIngresosTarde('2024-04-26', '2024-05-06');
+
+
+CALL ReporteIngresosTarde('2024-04-26', '2024-05-06', '9876543210');
 
 /*3. Reporte de horas extras*/
 
