@@ -23,7 +23,7 @@ public class formPrincipal extends javax.swing.JFrame {
         this.setTitle("Gestion Empleados");
         this.setLocationRelativeTo(null);
 
-        Iconos.setJFrameIcon(this, "iniciosesion.png");
+        Iconos.setJFrameIcon(this, "principal.png");
     }
 
     @SuppressWarnings("unchecked")
