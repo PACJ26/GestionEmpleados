@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/igu/formAdministrador.java</file>
             <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/Utilidad/ajustesTablas.java</file>
-            <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/Utilidad/Iconos.java</file>
+            <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/Utilidad/Mensajes.java</file>
             <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/igu/formPrincipal.java</file>
+            <file>file:/C:/Users/Juan/Documents/ProyectoSERVERUS/AppGestion/src/persistencia/Conexion.java</file>
         </group>
     </open-files>
 </project-private>
