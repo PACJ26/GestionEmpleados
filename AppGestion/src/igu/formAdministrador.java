@@ -99,13 +99,24 @@ public class formAdministrador extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TableLlegadastardes = new javax.swing.JTable();
         btnBuscartarde = new javax.swing.JButton();
-        txtDTarde = new javax.swing.JTextField();
-        Dateiniciotarde = new com.toedter.calendar.JDateChooser();
-        DatefinTarde = new com.toedter.calendar.JDateChooser();
+        txtDoTarde = new javax.swing.JTextField();
+        Datefechainicial = new com.toedter.calendar.JDateChooser();
+        Datefechafinal = new com.toedter.calendar.JDateChooser();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        btnEntradasTardes = new javax.swing.JButton();
+        btnReportetarde = new javax.swing.JButton();
+        PanelHorasextras = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TableHorasExtras = new javax.swing.JTable();
+        btnBuscarextras = new javax.swing.JButton();
+        txtDoExtras = new javax.swing.JTextField();
+        DatefechainicialExtras = new com.toedter.calendar.JDateChooser();
+        DatefechafinalExtras = new com.toedter.calendar.JDateChooser();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        btnReporteExtras = new javax.swing.JButton();
         PanelRegistro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
@@ -311,10 +322,10 @@ public class formAdministrador extends javax.swing.JFrame {
 
         jLabel20.setText("Fecha de Inicio");
 
-        btnEntradasTardes.setText("Descargar");
-        btnEntradasTardes.addActionListener(new java.awt.event.ActionListener() {
+        btnReportetarde.setText("Descargar");
+        btnReportetarde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntradasTardesActionPerformed(evt);
+                btnReportetardeActionPerformed(evt);
             }
         });
 
@@ -337,15 +348,15 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addComponent(jLabel19))
                     .addGroup(PanelEntradasTardesLayout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(txtDTarde, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDoTarde, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(137, 137, 137)
-                        .addComponent(Dateiniciotarde, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Datefechainicial, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(89, 89, 89)
-                        .addComponent(DatefinTarde, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Datefechafinal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
                 .addComponent(btnBuscartarde)
                 .addGap(18, 18, 18)
-                .addComponent(btnEntradasTardes)
+                .addComponent(btnReportetarde)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelEntradasTardesLayout.setVerticalGroup(
@@ -362,20 +373,113 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addGroup(PanelEntradasTardesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelEntradasTardesLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(txtDTarde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Dateiniciotarde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DatefinTarde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDoTarde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Datefechainicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Datefechafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEntradasTardesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(PanelEntradasTardesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBuscartarde)
-                            .addComponent(btnEntradasTardes))
+                            .addComponent(btnReportetarde))
                         .addGap(27, 27, 27)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         Jtab.addTab("Registro Entradas Tardes", PanelEntradasTardes);
+
+        TableHorasExtras.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(TableHorasExtras);
+
+        btnBuscarextras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/buscar.png"))); // NOI18N
+        btnBuscarextras.setText("Buscar");
+        btnBuscarextras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarextrasActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("Documento");
+
+        jLabel22.setText("Fecha de finalización ");
+
+        jLabel23.setText("Fecha de Inicio");
+
+        btnReporteExtras.setText("Descargar");
+        btnReporteExtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteExtrasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelHorasextrasLayout = new javax.swing.GroupLayout(PanelHorasextras);
+        PanelHorasextras.setLayout(PanelHorasextrasLayout);
+        PanelHorasextrasLayout.setHorizontalGroup(
+            PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 997, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                .addGroup(PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel21)
+                        .addGap(191, 191, 191)
+                        .addComponent(jLabel23)
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel22))
+                    .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(txtDoExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137)
+                        .addComponent(DatefechainicialExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
+                        .addComponent(DatefechafinalExtras, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
+                .addComponent(btnBuscarextras)
+                .addGap(18, 18, 18)
+                .addComponent(btnReporteExtras)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        PanelHorasextrasLayout.setVerticalGroup(
+            PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                .addGroup(PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel22))
+                        .addGap(6, 6, 6)
+                        .addGroup(PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelHorasextrasLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(txtDoExtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DatefechainicialExtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DatefechafinalExtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelHorasextrasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelHorasextrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBuscarextras)
+                            .addComponent(btnReporteExtras))
+                        .addGap(27, 27, 27)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        Jtab.addTab("Registro Horas Extras", PanelHorasextras);
 
         PanelRegistro.setBackground(new java.awt.Color(255, 255, 229));
         PanelRegistro.setForeground(new java.awt.Color(255, 255, 255));
@@ -739,13 +843,25 @@ public class formAdministrador extends javax.swing.JFrame {
 
     private void btnGenerarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarAsistenciaActionPerformed
         // TODO add your handling code here:
-        exportToExcel(TableAsistencia, "C:/Users/Juan/Desktop/pruebaasis.xls");
+        exportToExcel(TableAsistencia, "C:/Users/Juan/Desktop/Asistencia.xls");
     }//GEN-LAST:event_btnGenerarAsistenciaActionPerformed
 
-    private void btnEntradasTardesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradasTardesActionPerformed
+    private void btnReportetardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportetardeActionPerformed
         // TODO add your handling code here:
-        exportToExcel(TableLlegadastardes, "C:/Users/Juan/Desktop/pruebaasis.xls");
-    }//GEN-LAST:event_btnEntradasTardesActionPerformed
+        exportToExcel(TableLlegadastardes, "C:/Users/Juan/Desktop/LledadasTardes.xls");
+    }//GEN-LAST:event_btnReportetardeActionPerformed
+
+    private void btnBuscarextrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarextrasActionPerformed
+        // TODO add your handling code here:
+        ReporteHorasExtras();
+    }//GEN-LAST:event_btnBuscarextrasActionPerformed
+
+    private void btnReporteExtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteExtrasActionPerformed
+        // TODO add your handling code here:
+        exportToExcel(TableHorasExtras, "C:/Users/Juan/Desktop/HorasExtras.xls");
+
+
+    }//GEN-LAST:event_btnReporteExtrasActionPerformed
 
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
@@ -997,8 +1113,8 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public void LlegadasTardes() {
-        Date fechatardeInicio = Dateiniciotarde.getDate();
-        Date fechatardeFin = DatefinTarde.getDate();
+        Date fechatardeInicio = Datefechainicial.getDate();
+        Date fechatardeFin = Datefechafinal.getDate();
 
         if (fechatardeInicio == null || fechatardeFin == null) {
             Mensajes.mostrarAdvertencia("Por favor, seleccione una fecha de inicio y una fecha de fin válidas.");
@@ -1013,7 +1129,7 @@ public class formAdministrador extends javax.swing.JFrame {
         java.sql.Date sqlFechaInicio = new java.sql.Date(fechatardeInicio.getTime());
         java.sql.Date sqlFechaFin = new java.sql.Date(fechatardeFin.getTime());
 
-        String documentoEmpleado = txtDTarde.getText().trim();
+        String documentoEmpleado = txtDoTarde.getText().trim();
 
         try (Connection con = conexion.conectar()) {
             DefaultTableModel model = new DefaultTableModel();
@@ -1044,6 +1160,61 @@ public class formAdministrador extends javax.swing.JFrame {
             }
             TableLlegadastardes.setModel(model);
             ajustesTablas.ajustarTabla(TableLlegadastardes);
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al obtener los datos de entrada y salida" + e);
+        } finally {
+            conexion.desconectar();
+        }
+    }
+
+    public void ReporteHorasExtras() {
+        Date fechaInicio = DatefechainicialExtras.getDate();
+        Date fechaFin = DatefechafinalExtras.getDate();
+
+        if (fechaInicio == null || fechaFin == null) {
+            Mensajes.mostrarAdvertencia("Por favor, seleccione una fecha de inicio y una fecha de fin válidas.");
+            return;
+        }
+
+        if (fechaInicio.after(fechaFin)) {
+            Mensajes.mostrarAdvertencia("La fecha de inicio no puede ser posterior a la fecha de fin.");
+            return;
+        }
+
+        java.sql.Date sqlFechaInicio = new java.sql.Date(fechaInicio.getTime());
+        java.sql.Date sqlFechaFin = new java.sql.Date(fechaFin.getTime());
+
+        String documentoEmpleado = txtDoExtras.getText().trim();
+
+        try (Connection con = conexion.conectar()) {
+            DefaultTableModel model = new DefaultTableModel();
+            CallableStatement stmt = con.prepareCall("{CALL ReporteHorasExtras(?, ?, ?)}");
+            stmt.setDate(1, sqlFechaInicio);
+            stmt.setDate(2, sqlFechaFin);
+
+            // Pasar null si el campo del documento del empleado está vacío
+            if (documentoEmpleado.isEmpty()) {
+                stmt.setNull(3, Types.VARCHAR);
+            } else {
+                stmt.setString(3, documentoEmpleado);
+            }
+
+            ResultSet resultSet = stmt.executeQuery();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                model.addColumn(metaData.getColumnLabel(i));
+            }
+
+            while (resultSet.next()) {
+                Object[] filas = new Object[metaData.getColumnCount()];
+                for (int i = 0; i < metaData.getColumnCount(); i++) {
+                    filas[i] = resultSet.getObject(i + 1);
+                }
+                model.addRow(filas);
+            }
+            TableHorasExtras.setModel(model);
+            ajustesTablas.ajustarTabla(TableHorasExtras);
         } catch (SQLException e) {
             Mensajes.mostrarError("Error al obtener los datos de entrada y salida" + e);
         } finally {
@@ -1142,21 +1313,27 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DatefinTarde;
-    private com.toedter.calendar.JDateChooser Dateiniciotarde;
+    private com.toedter.calendar.JDateChooser Datefechafinal;
+    private com.toedter.calendar.JDateChooser DatefechafinalExtras;
+    private com.toedter.calendar.JDateChooser Datefechainicial;
+    private com.toedter.calendar.JDateChooser DatefechainicialExtras;
     private javax.swing.JTabbedPane Jtab;
     private javax.swing.JPanel PanelAsisencia;
     private javax.swing.JPanel PanelEmpleados;
     private javax.swing.JPanel PanelEntradasTardes;
+    private javax.swing.JPanel PanelHorasextras;
     private javax.swing.JPanel PanelRegistro;
     private javax.swing.JTable TableAsistencia;
+    private javax.swing.JTable TableHorasExtras;
     private javax.swing.JTable TableLlegadastardes;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarextras;
     private javax.swing.JButton btnBuscartarde;
-    private javax.swing.JButton btnEntradasTardes;
     private javax.swing.JButton btnGenerarAsistencia;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JButton btnReporteExtras;
+    private javax.swing.JButton btnReportetarde;
     private javax.swing.JComboBox<String> comboCargo;
     private javax.swing.JComboBox<String> comboDocumento;
     private javax.swing.JComboBox<String> comboGenero;
@@ -1177,6 +1354,9 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1190,12 +1370,14 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tablaRegistro;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDTarde;
     private javax.swing.JTextField txtDempleado;
     private javax.swing.JTextField txtDirreccion;
+    private javax.swing.JTextField txtDoExtras;
+    private javax.swing.JTextField txtDoTarde;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JPasswordField txtPassword;
