@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.RegistroEntradaSalida;
 import persistencia.Conexion;
 
@@ -24,6 +25,8 @@ public class formPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         Iconos.setJFrameIcon(this, "principal.png");
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,6 +43,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnEntrada = new javax.swing.JButton();
         btnSalida = new javax.swing.JButton();
         BtIniciarSesion = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +169,15 @@ public class formPrincipal extends javax.swing.JFrame {
         jPanel1.add(BtIniciarSesion);
         BtIniciarSesion.setBounds(650, 415, 70, 60);
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/salida.png"))); // NOI18N
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalir);
+        btnSalir.setBounds(370, 430, 120, 48);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -235,10 +248,23 @@ public class formPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         char c = evt.getKeyChar();
-        if (c < '0' || c > '9')  evt.consume();{
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
 
         }
     }//GEN-LAST:event_txtDocumentoKeyTyped
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+
+        int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     public String insertarRegistroEntrada(String documento, java.sql.Date fecha, java.sql.Time horaEntrada) {
         String mensaje = "";
@@ -333,6 +359,7 @@ public class formPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Izquierda;
     private javax.swing.JButton btnEntrada;
     private javax.swing.JButton btnSalida;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
