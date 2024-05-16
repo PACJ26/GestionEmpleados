@@ -95,6 +95,57 @@ BEGIN
 END //
 DELIMITER ;
 
+//buscar por documento
+
+DELIMITER //
+CREATE PROCEDURE BuscarEmpleadoPorDocumento(
+    IN p_documento VARCHAR(20)
+)
+BEGIN
+    SELECT * FROM Empleado WHERE documento = p_documento;
+END //
+DELIMITER ;
+
+CALL BuscarEmpleadoPorDocumento('4567890123');
+
+//modificar
+
+DELIMITER //
+CREATE PROCEDURE ModificarEmpleadoPorDocumento(
+    IN p_documento VARCHAR(20),
+    IN p_nuevoDocumento VARCHAR(20),
+    IN p_nombres VARCHAR(100),
+    IN p_apellidos VARCHAR(100),
+    IN p_tipoDocumento INT, 
+    IN p_numeroTelefonico VARCHAR(20),
+    IN p_direccion VARCHAR(100),
+    IN p_correoElectronico VARCHAR(100),
+    IN p_genero INT, 
+    IN p_fechaNacimiento DATE,
+    IN p_fechaContratacion DATE,
+    IN p_cargo INT,
+    IN p_salario VARCHAR(50),
+    IN p_clave VARCHAR(20) 
+)
+BEGIN
+    UPDATE Empleado
+    SET documento = p_nuevoDocumento,
+        nombres = p_nombres,
+        apellidos = p_apellidos,
+        tipoDocumento = p_tipoDocumento,
+        numeroTelefonico = p_numeroTelefonico,
+        direccion = p_direccion,
+        correoElectronico = p_correoElectronico,
+        genero = p_genero,
+        fechaNacimiento = p_fechaNacimiento,
+        fechaContratacion = p_fechaContratacion,
+        cargo = p_cargo,
+        salario = p_salario,
+        clave = p_clave
+    WHERE documento = p_documento;
+END //
+DELIMITER ;
+
 -- proceso validar documento
 
 DELIMITER //
@@ -127,14 +178,14 @@ BEGIN
     SELECT e.nombres 'Nombres',
     e.apellidos 'Apellidos', 
     e.documento 'Documento', 
-    td.tipoDocumento 'Tipo de Documento', 
-    e.numeroTelefonico 'Numero Telefonico', 
+    td.tipoDocumento 'Tipo Documento', 
+    e.numeroTelefonico 'Telefono', 
     e.direccion 'Dirección', 
-    e.correoElectronico 'Correo Electronico', 
-    g.tipoGenero 'Tipo de Genero', 
+    e.correoElectronico 'Correo', 
+    g.tipoGenero 'Genero', 
     e.fechaNacimiento 'Fecha Nacimiento', 
     e.fechaContratacion 'Fecha Contratación', 
-    c.tipoCargo 'Tipo de Cargo', 
+    c.tipoCargo 'Cargo', 
     e.salario 'Salario'
     FROM Empleado e
     INNER JOIN TipoDocumentos td ON td.id=e.tipoDocumento
@@ -345,7 +396,7 @@ BEGIN
     -- Reporte de un empleado específico que ingresó tarde
     IF documentoEmpleado IS NOT NULL THEN
         SELECT e.documento 'Documento', e.nombres 'Nombre', e.apellidos 'Apellido', res.fecha 'Fecha', res.horaEntrada 'Hora Entrada',
-               CASE WHEN res.horaEntrada > '08:00:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
+               CASE WHEN res.horaEntrada > '08:05:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
         FROM Empleado e
         INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
         WHERE res.fecha BETWEEN fechaInicio AND fechaFin
@@ -353,7 +404,7 @@ BEGIN
     ELSE
         -- Reporte de todos los empleados que ingresaron tarde
         SELECT e.documento 'Documento', e.nombres 'Nombre', e.apellidos 'Apellido', res.fecha 'Fecha', res.horaEntrada 'Hora Entrada',
-               CASE WHEN res.horaEntrada > '08:00:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
+               CASE WHEN res.horaEntrada > '08:05:00' THEN 'Tarde' ELSE 'A tiempo' END AS Llegada
         FROM Empleado e
         INNER JOIN RegistroEntradaSalida res ON e.id = res.id_empleado
         WHERE res.fecha BETWEEN fechaInicio AND fechaFin;
@@ -364,7 +415,7 @@ DELIMITER ;
 
 
 
-CALL ReporteIngresosTarde('2024-04-26', '2024-05-06', '9876543210');
+CALL ReporteIngresosTarde('2024-04-26', '2024-05-06', null);
 
 /*3. Reporte de horas extras*/
 
