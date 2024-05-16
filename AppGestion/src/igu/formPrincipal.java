@@ -32,6 +32,7 @@ public class formPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Panel_Izquierda = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         Panel_Derecha = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -48,15 +49,25 @@ public class formPrincipal extends javax.swing.JFrame {
         Panel_Izquierda.setBackground(new java.awt.Color(0, 102, 102));
         Panel_Izquierda.setPreferredSize(new java.awt.Dimension(400, 500));
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/empleadop.png"))); // NOI18N
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout Panel_IzquierdaLayout = new javax.swing.GroupLayout(Panel_Izquierda);
         Panel_Izquierda.setLayout(Panel_IzquierdaLayout);
         Panel_IzquierdaLayout.setHorizontalGroup(
             Panel_IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+            .addGroup(Panel_IzquierdaLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         Panel_IzquierdaLayout.setVerticalGroup(
             Panel_IzquierdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_IzquierdaLayout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         jPanel1.add(Panel_Izquierda);
@@ -70,6 +81,12 @@ public class formPrincipal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Digite el Documento de Identidad:");
+
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
+        });
 
         btnEntrada.setBackground(new java.awt.Color(0, 102, 26));
         btnEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,6 +231,15 @@ public class formPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_BtIniciarSesionActionPerformed
 
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9')  evt.consume();{
+
+        }
+    }//GEN-LAST:event_txtDocumentoKeyTyped
+
     public String insertarRegistroEntrada(String documento, java.sql.Date fecha, java.sql.Time horaEntrada) {
         String mensaje = "";
         try (Connection con = conexion.conectar()) {
@@ -309,6 +335,7 @@ public class formPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtDocumento;
     // End of variables declaration//GEN-END:variables

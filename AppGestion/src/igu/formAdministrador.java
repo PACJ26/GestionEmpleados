@@ -3,6 +3,7 @@ package igu;
 import Utilidad.Mensajes;
 import Utilidad.Iconos;
 import Utilidad.ajustesTablas;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.CallableStatement;
@@ -17,17 +18,16 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
+import jxl.format.VerticalAlignment;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
@@ -69,8 +69,8 @@ public class formAdministrador extends javax.swing.JFrame {
         Iconos.setIcon(Jtab, 0, "registrar.png");
         Iconos.setIcon(Jtab, 1, "empleado.png");
         Iconos.setIcon(Jtab, 2, "asistencia.png");
-         Iconos.setIcon(Jtab, 3, "entradasalida.png");
-          Iconos.setIcon(Jtab, 4, "reloj.png");
+        Iconos.setIcon(Jtab, 3, "entradasalida.png");
+        Iconos.setIcon(Jtab, 4, "reloj.png");
 
         Iconos.setJFrameIcon(this, "admi.png");
 
@@ -94,7 +94,6 @@ public class formAdministrador extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDirreccion = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -111,8 +110,14 @@ public class formAdministrador extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        txtDocumentoActual = new javax.swing.JTextField();
+        btbBuscarEmpleado = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtDireccion = new javax.swing.JTextArea();
         PanelEmpleados = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRegistro = new javax.swing.JTable();
@@ -175,6 +180,11 @@ public class formAdministrador extends javax.swing.JFrame {
 
         txtNombres.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtNombres.setText("jTextField1");
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombresKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -182,6 +192,11 @@ public class formAdministrador extends javax.swing.JFrame {
 
         txtApellidos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtApellidos.setText("jTextField1");
+        txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidosKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -189,6 +204,11 @@ public class formAdministrador extends javax.swing.JFrame {
 
         txtDocumento.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtDocumento.setText("jTextField1");
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -203,13 +223,15 @@ public class formAdministrador extends javax.swing.JFrame {
 
         txtTelefono.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTelefono.setText("jTextField1");
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Dirección");
-
-        txtDirreccion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtDirreccion.setText("jTextField1");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -252,6 +274,11 @@ public class formAdministrador extends javax.swing.JFrame {
 
         txtSalario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtSalario.setText("jTextField1");
+        txtSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSalarioKeyTyped(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -265,24 +292,69 @@ public class formAdministrador extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("FORMULARIO DE REGISTRO");
 
+        jLabel24.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel24.setText("Buscar por documento");
+
+        txtDocumentoActual.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtDocumentoActual.setText("jTextField1");
+        txtDocumentoActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoActualKeyTyped(evt);
+            }
+        });
+
+        btbBuscarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/buscar.png"))); // NOI18N
+        btbBuscarEmpleado.setText("Buscar");
+        btbBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btbBuscarEmpleadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(338, 338, 338))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(380, 380, 380))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDocumentoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btbBuscarEmpleado)
+                        .addGap(320, 320, 320))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(jLabel17)
-                .addGap(33, 33, 33))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDocumentoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btbBuscarEmpleado)
+                    .addComponent(jLabel24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 229));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
 
         btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -295,22 +367,21 @@ public class formAdministrador extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegistrar)
-                .addGap(459, 459, 459))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnModificar.setBackground(new java.awt.Color(0, 0, 0));
+        btnModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/editar.png"))); // NOI18N
+        btnModificar.setText("MODIFICAR");
+        btnModificar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        txtDireccion.setColumns(20);
+        txtDireccion.setRows(5);
+        jScrollPane5.setViewportView(txtDireccion);
 
         javax.swing.GroupLayout PanelRegistroLayout = new javax.swing.GroupLayout(PanelRegistro);
         PanelRegistro.setLayout(PanelRegistroLayout);
@@ -344,9 +415,9 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(PanelRegistroLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtDirreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(144, 144, 144)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -389,7 +460,14 @@ public class formAdministrador extends javax.swing.JFrame {
                                 .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 223, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addComponent(btnRegistrar)
+                .addGap(117, 117, 117)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PanelRegistroLayout.setVerticalGroup(
             PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,34 +509,31 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addComponent(comboDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRegistroLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDirreccion, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelRegistroLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
+                                .addGap(36, 36, 36)
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel9)))))
-                    .addGroup(PanelRegistroLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(PanelRegistroLayout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(jLabel12))
-                                .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(33, 33, 33)
+                                    .addComponent(jLabel9)))
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                            .addGap(5, 5, 5)
+                                            .addComponent(jLabel12))
+                                        .addComponent(comboCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(jLabel13)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel16))
-                    .addGroup(PanelRegistroLayout.createSequentialGroup()
-                        .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel13))
+                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelRegistroLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(6, 6, 6)
@@ -467,11 +542,29 @@ public class formAdministrador extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addGap(6, 6, 6)
                         .addComponent(dateContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(121, 121, 121)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelRegistroLayout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(53, 53, 53))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())))
+                    .addGroup(PanelRegistroLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        Jtab.addTab("Registrar Empleado", PanelRegistro);
+        Jtab.addTab("Registrar y Modificar", PanelRegistro);
 
         tablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -516,7 +609,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        Jtab.addTab("Empleados", PanelEmpleados);
+        Jtab.addTab("Tabla Empleados", PanelEmpleados);
 
         TableAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -536,6 +629,12 @@ public class formAdministrador extends javax.swing.JFrame {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtDempleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDempleadoKeyTyped(evt);
             }
         });
 
@@ -626,6 +725,12 @@ public class formAdministrador extends javax.swing.JFrame {
         btnBuscartarde.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscartardeActionPerformed(evt);
+            }
+        });
+
+        txtDoTarde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDoTardeKeyTyped(evt);
             }
         });
 
@@ -722,6 +827,12 @@ public class formAdministrador extends javax.swing.JFrame {
             }
         });
 
+        txtDoExtras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDoExtrasKeyTyped(evt);
+            }
+        });
+
         jLabel21.setText("Documento");
 
         jLabel22.setText("Fecha de finalización ");
@@ -811,6 +922,7 @@ public class formAdministrador extends javax.swing.JFrame {
 
         jMenu2.setText("Inicio");
 
+        ItemCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/cerrarsesion.png"))); // NOI18N
         ItemCerrarSesion.setText("Cerrar Sesión");
         ItemCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -900,6 +1012,142 @@ public class formAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ItemCerrarSesionActionPerformed
 
+    private void btbBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbBuscarEmpleadoActionPerformed
+        // TODO add your handling code here:
+        String documento = txtDocumentoActual.getText(); // Obtener el documento del campo de texto
+        buscarYMostrarEmpleado(documento);
+    }//GEN-LAST:event_btbBuscarEmpleadoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        String documentoAnterior = txtDocumentoActual.getText();
+        String nuevoDocumento = txtDocumento.getText();
+        String nuevosNombres = txtNombres.getText();
+        String nuevosApellidos = txtApellidos.getText();
+        int nuevoTipoDocumento = comboDocumento.getSelectedIndex(); // Ajusta esto según tu lógica
+        String nuevoNumeroTelefonico = txtTelefono.getText();
+        String nuevaDireccion = txtDireccion.getText();
+        String nuevoCorreoElectronico = txtCorreo.getText();
+        int nuevoGenero = comboGenero.getSelectedIndex(); // Ajusta esto según tu lógica
+        Date nuevaFechaNacimiento = dateFechanacimiento.getDate(); // Ajusta esto según tu lógica
+        Date nuevaFechaContratacion = dateContratacion.getDate(); // Ajusta esto según tu lógica
+        int nuevoCargo = comboCargo.getSelectedIndex(); // Ajusta esto según tu lógica
+        String nuevoSalario = txtSalario.getText();
+        String nuevaClave = String.valueOf(txtPassword.getPassword());
+
+        // Llamar al método para modificar el empleado por documento
+        modificarEmpleadoPorDocumento(
+                documentoAnterior,
+                nuevoDocumento,
+                nuevosNombres,
+                nuevosApellidos,
+                nuevoTipoDocumento,
+                nuevoNumeroTelefonico,
+                nuevaDireccion,
+                nuevoCorreoElectronico,
+                nuevoGenero,
+                nuevaFechaNacimiento,
+                nuevaFechaContratacion,
+                nuevoCargo,
+                nuevoSalario,
+                nuevaClave
+        );
+
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void txtDocumentoActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoActualKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+
+        }
+    }//GEN-LAST:event_txtDocumentoActualKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+
+        }
+    }//GEN-LAST:event_txtDocumentoKeyTyped
+
+    private void txtSalarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalarioKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+
+        }
+    }//GEN-LAST:event_txtSalarioKeyTyped
+
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombresKeyTyped
+
+    private void txtApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidosKeyTyped
+
+    private void txtDempleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDempleadoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+        }
+    }//GEN-LAST:event_txtDempleadoKeyTyped
+
+    private void txtDoTardeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDoTardeKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+        }
+    }//GEN-LAST:event_txtDoTardeKeyTyped
+
+    private void txtDoExtrasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDoExtrasKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        {
+        }
+    }//GEN-LAST:event_txtDoExtrasKeyTyped
+
     public void llenarComboDocumento() {
         try (Connection con = conexion.conectar()) {
             comboDocumento.removeAllItems();
@@ -967,7 +1215,7 @@ public class formAdministrador extends javax.swing.JFrame {
 
         if (txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDocumento.getText().isEmpty()
                 || txtCorreo.getText().isEmpty() || comboCargo.getSelectedIndex() == 0 || comboDocumento.getSelectedIndex() == 0
-                || txtTelefono.getText().isEmpty() || txtDirreccion.getText().isEmpty() || comboGenero.getSelectedIndex() == 0 || txtSalario.getText().isEmpty()
+                || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || comboGenero.getSelectedIndex() == 0 || txtSalario.getText().isEmpty()
                 || dateFechanacimiento.getDate() == null || dateContratacion.getDate() == null || String.valueOf(txtPassword.getPassword()).isEmpty()) {
             return false;
         }
@@ -991,7 +1239,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 stmt.setString(3, txtDocumento.getText());
                 stmt.setInt(4, comboDocumento.getSelectedIndex());
                 stmt.setString(5, txtTelefono.getText());
-                stmt.setString(6, txtDirreccion.getText());
+                stmt.setString(6, txtDireccion.getText());
                 stmt.setString(7, txtCorreo.getText());
                 stmt.setInt(8, comboGenero.getSelectedIndex());
                 java.util.Date utilDate = dateFechanacimiento.getDate();
@@ -1017,13 +1265,119 @@ public class formAdministrador extends javax.swing.JFrame {
         }
     }
 
+    public void buscarYMostrarEmpleado(String documento) {
+        // Verificar si el campo del documento está vacío
+        if (documento.isEmpty()) {
+            Mensajes.mostrarAdvertencia("Ingrese un documento para buscar");
+            return; // Salir del método si el campo está vacío
+        }
+
+        String callProcedureBuscar = "{CALL BuscarEmpleadoPorDocumento(?)}";
+
+        try (Connection con = conexion.conectar()) {
+            CallableStatement stmtBuscar = con.prepareCall(callProcedureBuscar);
+            stmtBuscar.setString(1, documento);
+            ResultSet rs = stmtBuscar.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                Mensajes.mostrarAdvertencia("No se encontró ningún empleado con el documento proporcionado");
+            } else {
+                while (rs.next()) {
+                    // Aquí obtienes los datos del empleado encontrado
+                    String nombres = rs.getString("nombres");
+                    String apellidos = rs.getString("apellidos");
+                    String documentos = rs.getString("documento");
+                    String numerotelefono = rs.getString("numeroTelefonico");
+                    String direccion = rs.getString("direccion");
+                    String correo = rs.getString("correoElectronico");
+                    int combogenero = rs.getInt("genero");
+                    int combodocumento = rs.getInt("tipoDocumento");
+                    Date datefechanacimiento = rs.getDate("fechaNacimiento");
+                    Date datecontratacion = rs.getDate("fechaContratacion");
+                    int combocargo = rs.getInt("cargo");
+                    String salario = rs.getString("salario");
+                    String salarioFormateado = formatearSalario(salario);
+                    String clave = rs.getString("clave");
+
+                    // Asignar los datos del empleado a los campos correspondientes en la interfaz gráfica
+                    txtNombres.setText(nombres);
+                    txtApellidos.setText(apellidos);
+                    txtDocumento.setText(documentos);
+                    comboDocumento.setSelectedIndex(combodocumento);
+                    txtTelefono.setText(numerotelefono);
+                    txtDireccion.setText(direccion);
+                    txtCorreo.setText(correo);
+                    comboGenero.setSelectedIndex(combogenero);
+                    dateFechanacimiento.setDate(datefechanacimiento);
+                    dateContratacion.setDate(datecontratacion);
+                    comboCargo.setSelectedIndex(combocargo);
+                    txtSalario.setText(salarioFormateado);
+                    txtPassword.setText(clave);
+                }
+            }
+            conexion.desconectar();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al buscar el empleado");
+            System.out.println(e.toString());
+        }
+    }
+
+    public void modificarEmpleadoPorDocumento(
+            String documentoAnterior,
+            String nuevoDocumento,
+            String nuevosNombres,
+            String nuevosApellidos,
+            int nuevoTipoDocumento,
+            String nuevoNumeroTelefonico,
+            String nuevaDireccion,
+            String nuevoCorreoElectronico,
+            int nuevoGenero,
+            Date nuevaFechaNacimiento,
+            Date nuevaFechaContratacion,
+            int nuevoCargo,
+            String nuevoSalario,
+            String nuevaClave
+    ) {
+
+        nuevoSalario = formatearSalario(nuevoSalario);
+        String callProcedureModificar = "{CALL ModificarEmpleadoPorDocumento(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (Connection con = conexion.conectar()) {
+            CallableStatement stmtModificar = con.prepareCall(callProcedureModificar);
+            stmtModificar.setString(1, documentoAnterior); // Documento anterior del empleado
+            stmtModificar.setString(2, nuevoDocumento); // Nuevo documento del empleado
+            stmtModificar.setString(3, nuevosNombres);
+            stmtModificar.setString(4, nuevosApellidos);
+            stmtModificar.setInt(5, nuevoTipoDocumento);
+            stmtModificar.setString(6, nuevoNumeroTelefonico);
+            stmtModificar.setString(7, nuevaDireccion);
+            stmtModificar.setString(8, nuevoCorreoElectronico);
+            stmtModificar.setInt(9, nuevoGenero);
+            stmtModificar.setDate(10, new java.sql.Date(nuevaFechaNacimiento.getTime()));
+            stmtModificar.setDate(11, new java.sql.Date(nuevaFechaContratacion.getTime()));
+            stmtModificar.setInt(12, nuevoCargo);
+            stmtModificar.setString(13, nuevoSalario);
+            stmtModificar.setString(14, nuevaClave);
+
+            stmtModificar.execute();
+            Mensajes.mostrarExito("Empleado modificado correctamente");
+            conexion.desconectar();
+            mostrarInfo();
+        } catch (SQLException e) {
+            Mensajes.mostrarError("Error al modificar el empleado");
+            System.out.println(e.toString());
+        }
+    }
+
     public String formatearSalario(String salario) {
+        // Verificar si el salario ya está en el formato deseado
+        if (salario.matches("^\\$\\s\\d{1,3}(\\.\\d{3})*(,\\d+)?$")) {
+            return salario;
+        }
 
-        salario = salario.replaceAll("[^\\d.]", "");
-        double salarioNumerico = Double.parseDouble(salario);
-        DecimalFormat formatoSalario = new DecimalFormat("$ #,###.###");
+        salario = salario.replaceAll("[^\\d.,]", ""); // Eliminar todo excepto los dígitos, coma y punto decimal
+        double salarioNumerico = Double.parseDouble(salario.replace(",", "")); // Eliminar comas para evitar errores en el parseo
+        DecimalFormat formatoSalario = new DecimalFormat("$ #,###.##");
         String salarioFormateado = formatoSalario.format(salarioNumerico);
-
         return salarioFormateado;
     }
 
@@ -1032,12 +1386,13 @@ public class formAdministrador extends javax.swing.JFrame {
         txtApellidos.setText("");
         txtDocumento.setText("");
         txtTelefono.setText("");
-        txtDirreccion.setText("");
+        txtDireccion.setText("");
         txtCorreo.setText("");
         dateFechanacimiento.setDate(null);
         dateContratacion.setDate(null);
         txtSalario.setText("");
         txtPassword.setText("");
+        txtDocumentoActual.setText("");
 
         comboDocumento.removeAllItems();
         llenarComboDocumento();
@@ -1269,27 +1624,31 @@ public class formAdministrador extends javax.swing.JFrame {
             WritableCellFormat headerFormat = new WritableCellFormat(headerFont);
             headerFormat.setBackground(Colour.AQUA);
             headerFormat.setAlignment(Alignment.CENTRE);
+            headerFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
             headerFormat.setBorder(Border.ALL, BorderLineStyle.THIN);
 
-            // Escribir los encabezados
+            // Escribir los encabezados y establecer ancho predeterminado para las columnas
             for (int i = 0; i < table.getColumnCount(); i++) {
                 Label label = new Label(i, 0, table.getColumnName(i), headerFormat);
                 sheet.addCell(label);
-                sheet.setColumnView(i, 15); // Ajustar el ancho de las columnas
+                sheet.setColumnView(i, 23); // Ajustar manualmente el ancho de las columnas
             }
 
-            // Formato de centrado para los datos
+            // Formato para los datos
             WritableFont dataFont = new WritableFont(WritableFont.ARIAL, 10);
             WritableCellFormat dataFormat = new WritableCellFormat(dataFont);
             dataFormat.setAlignment(Alignment.CENTRE);
+            dataFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
 
-            // Escribir datos de la tabla
-            for (int row = 0; row < table.getRowCount(); row++) {
-                for (int col = 0; col < table.getColumnCount(); col++) {
-                    Object value = table.getValueAt(row, col);
+            // Escribir datos de la tabla y ajustar altura de filas según el contenido
+            TableModel model = table.getModel();
+            for (int row = 0; row < model.getRowCount(); row++) {
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Object value = model.getValueAt(row, col);
                     Label label = new Label(col, row + 1, value != null ? value.toString() : "", dataFormat);
                     sheet.addCell(label);
                 }
+                sheet.setRowView(row + 1, 250); // Ajustar manualmente la altura de las filas
             }
 
             workbook.write();
@@ -1299,8 +1658,7 @@ public class formAdministrador extends javax.swing.JFrame {
             Mensajes.mostrarInformacion(message);
         } catch (IOException | WriteException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al exportar a Excel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+            Mensajes.mostrarError("Error al exportar a Excel: " + e.getMessage());
         }
     }
 
@@ -1365,10 +1723,12 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JTable TableAsistencia;
     private javax.swing.JTable TableHorasExtras;
     private javax.swing.JTable TableLlegadastardes;
+    private javax.swing.JButton btbBuscarEmpleado;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscarextras;
     private javax.swing.JButton btnBuscartarde;
     private javax.swing.JButton btnGenerarAsistencia;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnReporteExtras;
@@ -1396,6 +1756,7 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1412,14 +1773,16 @@ public class formAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tablaRegistro;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDempleado;
-    private javax.swing.JTextField txtDirreccion;
+    private javax.swing.JTextArea txtDireccion;
     private javax.swing.JTextField txtDoExtras;
     private javax.swing.JTextField txtDoTarde;
     private javax.swing.JTextField txtDocumento;
+    private javax.swing.JTextField txtDocumentoActual;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtSalario;

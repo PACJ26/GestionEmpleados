@@ -6,6 +6,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableCellRenderer;
 
 public class ajustesTablas {
 
@@ -32,9 +34,19 @@ public class ajustesTablas {
 
     private static void ajustarAnchoColumnas(JTable tabla) {
         int totalColumnas = tabla.getColumnCount();
+        JTableHeader header = tabla.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        Font headerFont = header.getFont();
+
         for (int i = 0; i < totalColumnas; i++) {
-            tabla.getColumnModel().getColumn(i).setPreferredWidth(125);
-            tabla.getColumnModel().getColumn(i).setResizable(false);
+            TableColumn columna = tabla.getColumnModel().getColumn(i);
+            TableCellRenderer renderer = columna.getHeaderRenderer();
+            if (renderer == null) {
+                renderer = headerRenderer;
+            }
+            java.awt.Component componente = renderer.getTableCellRendererComponent(tabla, columna.getHeaderValue(), false, false, -1, i);
+            int ancho = componente.getPreferredSize().width + 10; // 10 es un margen
+            columna.setPreferredWidth(ancho);
         }
     }
 
@@ -44,6 +56,7 @@ public class ajustesTablas {
     }
 
     static class HeaderRenderer extends DefaultTableCellRenderer {
+
         public HeaderRenderer() {
             setOpaque(true);
             setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
@@ -57,7 +70,7 @@ public class ajustesTablas {
                 boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Establecer el borde
-            setFont(new Font("Arial", Font.BOLD, 13)); // Establecer la fuente y la negrita
+            setFont(new Font("Arial", Font.BOLD, 12)); // Establecer la fuente y la negrita
             return this;
         }
     }
