@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ItemCerrarSesion">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/img/ICONOS/cerrarsesion.png"/>
                 </Property>
@@ -344,7 +347,6 @@
                                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="btnRegistrar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                                               <Component id="btnModificar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>

@@ -11,6 +11,7 @@ import persistencia.Conexion;
 public class formLogin extends javax.swing.JFrame {
 
     Conexion conexion;
+    public static String documentoEmpleado;
 
     public formLogin() {
         initComponents();
@@ -20,6 +21,8 @@ public class formLogin extends javax.swing.JFrame {
         limpiarCampos();
 
         Iconos.setJFrameIcon(this, "iniciosesion.png");
+        
+        getRootPane().setDefaultButton(btnIniciarSesion);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +46,10 @@ public class formLogin extends javax.swing.JFrame {
 
         btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/iniciar.png"))); // NOI18N
         btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.setBorderPainted(false);
+        btnIniciarSesion.setContentAreaFilled(false);
         btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.setDefaultCapable(false);
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIniciarSesionActionPerformed(evt);
@@ -102,7 +108,10 @@ public class formLogin extends javax.swing.JFrame {
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/volver.png"))); // NOI18N
         btnRegresar.setText("Regresar");
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setContentAreaFilled(false);
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setDefaultCapable(false);
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
@@ -179,49 +188,50 @@ public class formLogin extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
 
-        String documento = txtDocumento.getText();
+        documentoEmpleado = txtDocumento.getText();
         String clave = new String(txtClave.getPassword());
 
-        // Verificar si los campos están vacíos
-        if (documento.isEmpty() || clave.isEmpty()) {
+        if (documentoEmpleado.isEmpty() || clave.isEmpty()) {
             Mensajes.mostrarAdvertencia("Hay Campos vacios");
             return;
         }
 
         try (Connection con = conexion.conectar()) {
-            // Preparar la llamada al procedimiento almacenado
+
             CallableStatement calls = con.prepareCall("{CALL IniciarSesion(?, ?)}");
-            calls.setString(1, documento);
+            calls.setString(1, documentoEmpleado);
             calls.setString(2, clave);
 
-            // Ejecutar la consulta
             ResultSet rs = calls.executeQuery();
 
             if (rs.next()) {
-                // Obtener el mensaje devuelto por el procedimiento almacenado
+
                 String mensaje = rs.getString(1);
 
-                // Mostrar mensajes dependiendo del resultado
-                if (mensaje.equals("Usuario no encontrado")) {
-                    Mensajes.mostrarError(mensaje);
-                } else if (mensaje.equals("Clave incorrecta")) {
-                    Mensajes.mostrarError(mensaje);
-                } else if (mensaje.equals("Inicio de sesión exitoso")) {
-                    Mensajes.mostrarExito(mensaje);
+                switch (mensaje) {
+                    case "Usuario no encontrado":
+                        Mensajes.mostrarError("Usuario no encontrado");
+                        break;
+                    case "Clave incorrecta":
+                        Mensajes.mostrarError("Clave incorrecta");
+                        break;
+                    case "Inicio de sesión exitoso":
+                        Mensajes.mostrarExito("Inicio de sesión exitoso");
 
-                    // Obtener el cargo del empleado
-                    int cargoEmpleado = obtenerCargoEmpleado(documento);
+                        int cargoEmpleado = obtenerCargoEmpleado(documentoEmpleado);
 
-                    // Abrir la ventana correspondiente según el cargo
-                    switch (cargoEmpleado) {
-                        case 2:
-                            formAdministrador administrador = new formAdministrador();
-                            administrador.setVisible(true);
-                            this.dispose();
-                            break;
-                        default:
-                            Mensajes.mostrarError("Cargo no encontrado: Error al iniciar sesión");
-                    }
+                        switch (cargoEmpleado) {
+                            case 2:
+                                formAdministrador administrador = new formAdministrador();
+                                administrador.setVisible(true);
+                                this.dispose();
+                                break;
+                            default:
+                                Mensajes.mostrarError("Cargo no encontrado: Error al iniciar sesión");
+                        }
+                        break;
+                    default:
+                        Mensajes.mostrarError("Intento de inicio de sesión no autorizado");
                 }
             }
             conexion.desconectar();
