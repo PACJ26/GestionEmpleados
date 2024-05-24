@@ -551,7 +551,6 @@ public class formAdministrador extends javax.swing.JFrame {
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(53, 53, 53))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegistroLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(PanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -922,6 +921,7 @@ public class formAdministrador extends javax.swing.JFrame {
 
         jMenu2.setText("Inicio");
 
+        ItemCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         ItemCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ICONOS/cerrarsesion.png"))); // NOI18N
         ItemCerrarSesion.setText("Cerrar Sesión");
         ItemCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -1005,16 +1005,31 @@ public class formAdministrador extends javax.swing.JFrame {
 
         int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar la sesión?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
+            String documento = formLogin.documentoEmpleado;
+
+            // Llamar al procedimiento de cierre de sesión
+            String callProcedure = "{CALL CerrarSesion(?)}";
+            try (Connection con = conexion.conectar()) {
+                CallableStatement stmt = con.prepareCall(callProcedure);
+                stmt.setString(1, documento);
+                stmt.execute();
+                Mensajes.mostrarExito("Cierre de sesión exitoso");
+                mostrarInfo();
+                conexion.desconectar();
+            } catch (SQLException e) {
+                Mensajes.mostrarError("Error al cerrar sesión");
+                System.out.println(e.toString());
+            }
+
             formPrincipal principal = new formPrincipal();
             principal.setVisible(true);
             this.dispose();
-        }
-
     }//GEN-LAST:event_ItemCerrarSesionActionPerformed
+    }
 
     private void btbBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbBuscarEmpleadoActionPerformed
         // TODO add your handling code here:
-        String documento = txtDocumentoActual.getText(); // Obtener el documento del campo de texto
+        String documento = txtDocumentoActual.getText();
         buscarYMostrarEmpleado(documento);
     }//GEN-LAST:event_btbBuscarEmpleadoActionPerformed
 
@@ -1024,18 +1039,17 @@ public class formAdministrador extends javax.swing.JFrame {
         String nuevoDocumento = txtDocumento.getText();
         String nuevosNombres = txtNombres.getText();
         String nuevosApellidos = txtApellidos.getText();
-        int nuevoTipoDocumento = comboDocumento.getSelectedIndex(); // Ajusta esto según tu lógica
+        int nuevoTipoDocumento = comboDocumento.getSelectedIndex();
         String nuevoNumeroTelefonico = txtTelefono.getText();
         String nuevaDireccion = txtDireccion.getText();
         String nuevoCorreoElectronico = txtCorreo.getText();
-        int nuevoGenero = comboGenero.getSelectedIndex(); // Ajusta esto según tu lógica
-        Date nuevaFechaNacimiento = dateFechanacimiento.getDate(); // Ajusta esto según tu lógica
-        Date nuevaFechaContratacion = dateContratacion.getDate(); // Ajusta esto según tu lógica
-        int nuevoCargo = comboCargo.getSelectedIndex(); // Ajusta esto según tu lógica
+        int nuevoGenero = comboGenero.getSelectedIndex();
+        Date nuevaFechaNacimiento = dateFechanacimiento.getDate();
+        Date nuevaFechaContratacion = dateContratacion.getDate();
+        int nuevoCargo = comboCargo.getSelectedIndex();
         String nuevoSalario = txtSalario.getText();
         String nuevaClave = String.valueOf(txtPassword.getPassword());
 
-        // Llamar al método para modificar el empleado por documento
         modificarEmpleadoPorDocumento(
                 documentoAnterior,
                 nuevoDocumento,
@@ -1266,10 +1280,10 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public void buscarYMostrarEmpleado(String documento) {
-        // Verificar si el campo del documento está vacío
+
         if (documento.isEmpty()) {
             Mensajes.mostrarAdvertencia("Ingrese un documento para buscar");
-            return; // Salir del método si el campo está vacío
+            return;
         }
 
         String callProcedureBuscar = "{CALL BuscarEmpleadoPorDocumento(?)}";
@@ -1282,7 +1296,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 Mensajes.mostrarAdvertencia("No se encontró ningún empleado con el documento proporcionado");
             } else {
                 while (rs.next()) {
-                    // Aquí obtienes los datos del empleado encontrado
+                    // datos del empleado encontrado
                     String nombres = rs.getString("nombres");
                     String apellidos = rs.getString("apellidos");
                     String documentos = rs.getString("documento");
@@ -1298,7 +1312,6 @@ public class formAdministrador extends javax.swing.JFrame {
                     String salarioFormateado = formatearSalario(salario);
                     String clave = rs.getString("clave");
 
-                    // Asignar los datos del empleado a los campos correspondientes en la interfaz gráfica
                     txtNombres.setText(nombres);
                     txtApellidos.setText(apellidos);
                     txtDocumento.setText(documentos);
@@ -1343,9 +1356,8 @@ public class formAdministrador extends javax.swing.JFrame {
 
         try (Connection con = conexion.conectar()) {
             CallableStatement stmtModificar = con.prepareCall(callProcedureModificar);
-            stmtModificar.setString(1, documentoAnterior); // Documento anterior del empleado
-            stmtModificar.setString(2, nuevoDocumento); // Nuevo documento del empleado
-            stmtModificar.setString(3, nuevosNombres);
+            stmtModificar.setString(1, documentoAnterior);
+            stmtModificar.setString(2, nuevoDocumento);
             stmtModificar.setString(4, nuevosApellidos);
             stmtModificar.setInt(5, nuevoTipoDocumento);
             stmtModificar.setString(6, nuevoNumeroTelefonico);
@@ -1369,12 +1381,11 @@ public class formAdministrador extends javax.swing.JFrame {
     }
 
     public String formatearSalario(String salario) {
-        // Verificar si el salario ya está en el formato deseado
         if (salario.matches("^\\$\\s\\d{1,3}(\\.\\d{3})*(,\\d+)?$")) {
             return salario;
         }
 
-        salario = salario.replaceAll("[^\\d.,]", ""); // Eliminar todo excepto los dígitos, coma y punto decimal
+        salario = salario.replaceAll("[^\\d.,]", ""); // Eliminar todo excepto los dígitos, coma y punto decimal.
         double salarioNumerico = Double.parseDouble(salario.replace(",", "")); // Eliminar comas para evitar errores en el parseo
         DecimalFormat formatoSalario = new DecimalFormat("$ #,###.##");
         String salarioFormateado = formatoSalario.format(salarioNumerico);
