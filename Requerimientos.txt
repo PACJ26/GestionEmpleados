@@ -1,0 +1,12 @@
+Sistema Gestion de Empleados.
+
+Requerimientos.
+
+1.Reporte de hora de entrada y salida tanto
+de todos los empleados, como de un empleado especifico en un rango de fecha.
+
+2.Reporte de todos los empleados y de un empleado en especifico que ingresaron tarde en un rango de fecha, tomando como hora de entrada las 8:00 am.
+
+3. Reporte de las horas extras,  tando de todos empleados como de un empleado especifico en un rango de fecha, contando la hora de salida a las 6:00 pm.
+
+4. Reporte de todos los permisos remunerados y no remunerados registrados tanto de todos los empleados como de un empleado en especifico, filtrado por mes.
