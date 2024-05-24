@@ -1035,6 +1035,11 @@ public class formAdministrador extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+
+        if (!ValidarCamposVacios()) {
+            Mensajes.mostrarAdvertencia("Hay Campos vacios");
+            return;
+        }
         String documentoAnterior = txtDocumentoActual.getText();
         String nuevoDocumento = txtDocumento.getText();
         String nuevosNombres = txtNombres.getText();
@@ -1050,7 +1055,7 @@ public class formAdministrador extends javax.swing.JFrame {
         String nuevoSalario = txtSalario.getText();
         String nuevaClave = String.valueOf(txtPassword.getPassword());
 
-        modificarEmpleadoPorDocumento(
+        guardarModificacion(
                 documentoAnterior,
                 nuevoDocumento,
                 nuevosNombres,
@@ -1066,7 +1071,7 @@ public class formAdministrador extends javax.swing.JFrame {
                 nuevoSalario,
                 nuevaClave
         );
-
+        limpiarCampos();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void txtDocumentoActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoActualKeyTyped
@@ -1334,7 +1339,7 @@ public class formAdministrador extends javax.swing.JFrame {
         }
     }
 
-    public void modificarEmpleadoPorDocumento(
+    public void guardarModificacion(
             String documentoAnterior,
             String nuevoDocumento,
             String nuevosNombres,
@@ -1357,6 +1362,7 @@ public class formAdministrador extends javax.swing.JFrame {
         try (Connection con = conexion.conectar()) {
             CallableStatement stmtModificar = con.prepareCall(callProcedureModificar);
             stmtModificar.setString(1, documentoAnterior);
+            stmtModificar.setString(3, nuevosNombres);
             stmtModificar.setString(2, nuevoDocumento);
             stmtModificar.setString(4, nuevosApellidos);
             stmtModificar.setInt(5, nuevoTipoDocumento);
