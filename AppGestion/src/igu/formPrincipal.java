@@ -294,19 +294,10 @@ public class formPrincipal extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-
-        int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-
-=======
         int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres salir del programa?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0); // Sale del programa
         }
->>>>>>> Prueba
     }//GEN-LAST:event_btnSalirActionPerformed
 
     public String insertarRegistroEntrada(String documento, java.sql.Date fecha, java.sql.Time horaEntrada) {
